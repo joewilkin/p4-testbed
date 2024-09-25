@@ -622,6 +622,14 @@ class HostDialog(CustomDialog):
                    'vlanInterfaces':vlanInterfaces}
         self.result = results
 
+class P4SwitchDialog(CustomDialog):
+
+    def __init__(self, master, title, prefDefaults):
+
+        self.prefValues = prefDefaults
+        self.result = None
+        CustomDialog.__init__(self, master, title)
+
 class SwitchDialog(CustomDialog):
 
     def __init__(self, master, title, prefDefaults):
@@ -2575,7 +2583,9 @@ class MiniEdit( Frame ):
         if 'P4Switch' not in tags:
             return
         
-      
+        prefDefaults = self.switchOpts[name]
+        p4SwitchBox = P4SwitchDialog(self, title="P4 Switch Details", prefDefaults=prefDefaults)
+
 
     def linkUp( self ):
         if ( self.selection is None or
