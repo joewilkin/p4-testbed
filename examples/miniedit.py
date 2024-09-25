@@ -1164,7 +1164,7 @@ class MiniEdit( Frame ):
 
         # Initialize node data
         self.nodeBindings = self.createNodeBindings()
-        self.nodePrefixes = { 'LegacyRouter': 'r', 'LegacySwitch': 's', 'Switch': 's', 'Host': 'h' , 'Controller': 'c'}
+        self.nodePrefixes = { 'LegacyRouter': 'r', 'LegacySwitch': 's', 'Switch': 's', 'Host': 'h' , 'Controller': 'c', 'P4Switch': 'p'}
         self.widgetToItem = {}
         self.itemToWidget = {}
 
@@ -1204,6 +1204,11 @@ class MiniEdit( Frame ):
         self.switchRunPopup.add_command(label='Switch Options', font=self.font)
         self.switchRunPopup.add_separator()
         self.switchRunPopup.add_command(label='List bridge details', font=self.font, command=self.listBridge )
+
+        self.p4SwitchPopup = Menu(self.top, tearoff=0)
+        self.p4SwitchPopup.add_command(label='Docker Options', font=self.font)
+        self.p4SwitchPopup.add_separator()
+        self.p4SwitchPopup.add_command(label='Properties', font=self.font, command=self.p4SwitchDetails )
 
         self.linkPopup = Menu(self.top, tearoff=0)
         self.linkPopup.add_command(label='Link Options', font=self.font)
@@ -2143,6 +2148,14 @@ class MiniEdit( Frame ):
             self.switchOpts[name]['hostname']=name
             self.switchOpts[name]['switchType']='legacySwitch'
             self.switchOpts[name]['controllers']=[]
+        if node == 'P4Switch':
+            self.switchCount += 1
+            name = self.nodePrefixes[ node ] + str( self.switchCount )
+            self.switchOpts[name] = {}
+            self.switchOpts[name]['nodeNum']=self.switchCount
+            self.switchOpts[name]['hostname']=name
+            self.switchOpts[name]['switchType']='p4Switch'
+            self.switchOpts[name]['controllers']=[]
         if node == 'Host':
             self.hostCount += 1
             name = self.nodePrefixes[ node ] + str( self.hostCount )
@@ -2177,6 +2190,8 @@ class MiniEdit( Frame ):
             icon.bind('<Button-3>', self.do_hostPopup )
         if node == 'Controller':
             icon.bind('<Button-3>', self.do_controllerPopup )
+        if node == 'P4Switch':
+            icon.bind('<Button-3>', self.do_p4SwitchPopup )
 
     def clickController( self, event ):
         "Add a new Controller to our canvas."
@@ -2197,6 +2212,10 @@ class MiniEdit( Frame ):
     def clickSwitch( self, event ):
         "Add a new switch to our canvas."
         self.newNode( 'Switch', event )
+
+    def clickP4Switch( self, event ):
+        "Add a new P4 Switch to our canvas."
+        self.newNode( 'P4Switch', event)
 
     def dragNetLink( self, event ):
         "Drag a link's endpoint to another node."
@@ -2544,6 +2563,19 @@ class MiniEdit( Frame ):
             newSwitchOpts['netflow'] = switchBox.result['netflow']
             self.switchOpts[name] = newSwitchOpts
             info( 'New switch details for ' + name + ' = ' + str(newSwitchOpts), '\n' )
+
+    def p4SwitchDetails( self, _ignore=None ):
+        if ( self.selection is None or
+             self.net is not None or
+             self.selection not in self.itemToWidget ):
+            return
+        widget = self.itemToWidget[ self.selection ]
+        name = widget[ 'text' ]
+        tags = self.canvas.gettags( self.selection )
+        if 'P4Switch' not in tags:
+            return
+        
+      
 
     def linkUp( self ):
         if ( self.selection is None or
@@ -3145,6 +3177,15 @@ class MiniEdit( Frame ):
             finally:
                 # make sure to release the grab (Tk 8.0a1 only)
                 self.switchRunPopup.grab_release()
+
+    def do_p4SwitchPopup(self, event):
+        # display the popup menu
+        if self.net is None:
+        # Mininet is not running
+            try:
+                self.p4SwitchPopup.tk_popup(event.x_root, event.y_root, 0)
+            finally:
+                self.p4SwitchPopup.grab_release()
 
     def xterm( self, _ignore=None ):
         "Make an xterm when a button is pressed."
