@@ -36,6 +36,7 @@ from mininet.cli import CLI
 from mininet.moduledeps import moduleDeps
 from mininet.topo import SingleSwitchTopo, LinearTopo, SingleSwitchReversedTopo
 from mininet.topolib import TreeTopo
+from p4_mininet import P4Switch, P4Host
 
 # pylint: disable=import-error
 if sys.version_info[0] == 2:
@@ -629,6 +630,27 @@ class P4SwitchDialog(CustomDialog):
         self.prefValues = prefDefaults
         self.result = None
         CustomDialog.__init__(self, master, title)
+
+    def body(self, master):
+        self.rootFrame = master
+        n = Notebook(self.rootFrame)
+        self.propFrame = Frame(n)
+        self.ipFrame = Frame(n)
+        n.add(self.propFrame, text='Properties')
+        n.add(self.ipFrame, text='Multihoming IPs')
+        n.pack()
+
+        ### TAB 1
+        # Field for Hostname
+        Label(self.propFrame, text="Hostname:").grid(row=0, sticky=E)
+        self.hostnameEntry = Entry(self.propFrame)
+        self.hostnameEntry.grid(row=0, column=1)
+        if 'hostname' in self.prefValues:
+            self.hostnameEntry.insert(0, self.prefValues['hostname'])
+
+    def apply(self):
+        results = {'hostname': self.hostnameEntry.get()}
+        self.result = results
 
 class SwitchDialog(CustomDialog):
 
@@ -2585,6 +2607,17 @@ class MiniEdit( Frame ):
         
         prefDefaults = self.switchOpts[name]
         p4SwitchBox = P4SwitchDialog(self, title="P4 Switch Details", prefDefaults=prefDefaults)
+        self.master.wait_window(p4SwitchBox.top)
+        if p4SwitchBox.result:
+            newSwitchOpts = {'nodeNum':self.switchOpts[name]['nodeNum']}
+            #newSwitchOpts = self.switchOpts[name]
+            if len(p4SwitchBox.result['hostname']) > 0:
+                newSwitchOpts['hostname'] = p4SwitchBox.result['hostname']
+                name = p4SwitchBox.result['hostname']
+                widget[ 'text' ] = name
+            self.switchOpts[name] = newSwitchOpts
+            info( 'New switch details for ' + name + ' = ' + str(newSwitchOpts), '\n' )
+
 
 
     def linkUp( self ):
