@@ -1,0 +1,10 @@
+p4c --target bmv2 --arch v1model --std p4-16 modbus.p4 # creates the json
+
+sudo python3 topo.py --behavioral-exe simple_switch --json <json_file>
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+table_set_default MyIngress.ipv4_lpm MyIngress.drop
+table_add MyIngress.ipv4_lpm MyIngress.ipv4_forward 10.0.2.1/32 => 2
+table_add MyIngress.ipv4_lpm MyIngress.ipv4_forward 10.0.2.2/32 => 2
+table_add MyIngress.ipv4_lpm MyIngress.ipv4_forward 10.0.3.1/32 => 3
+table_add MyIngress.ipv4_lpm MyIngress.ipv4_forward 10.0.3.2/32 => 3
+table_add MyIngress.ipv4_lpm MyIngress.ipv4_forward 10.0.1.1/32 => 1
+table_add MyIngress.check_ports MyIngress.set_direction 1 2 => 0
+table_add MyIngress.check_ports MyIngress.set_direction 1 3 => 0
+table_add MyIngress.check_ports MyIngress.set_direction 2 1 => 1
+table_add MyIngress.check_ports MyIngress.set_direction 3 1 => 1
+table_set_default MyIngress.flowOut NoAction
+table_add MyIngress.flowOut MyIngress.setPort 10.0.2.1 10.0.1.1 6 502 0 1
+table_add MyIngress.flowOut MyIngress.setPort 10.0.2.2 10.0.1.1 6 502 0 1
+table_add MyIngress.flowOut MyIngress.setPort 10.0.3.1 10.0.1.1 6 502 0 1
+table_add MyIngress.flowOut MyIngress.setPort 10.0.3.2 10.0.1.1 6 502 0 1
+table_set_default MyIngress.flowIn MyIngress.drop
+table_add MyIngress.flowIn MyIngress.setPort 10.0.1.1 10.0.2.1 6 502 1  1
+table_add MyIngress.flowIn MyIngress.setPort 10.0.1.1 10.0.2.2 6 502 1  1
+table_add MyIngress.flowIn MyIngress.setPort 10.0.1.1 10.0.3.1 6 502 1  1
+table_add MyIngress.flowIn MyIngress.setPort 10.0.1.1 10.0.3.2 6 502 1 1 
+table_set_default MyIngress.modbusCheck MyIngress.drop
+table_add MyIngress.modbusCheck MyIngress.setPort 1 1
+table_add MyIngress.modbusCheck MyIngress.setPort 2 1
+table_add MyIngress.modbusCheck MyIngress.setPort 4 1
+table_add MyIngress.modbusCheck MyIngress.setPort 15 1
+table_add MyIngress.modbusCheck MyIngress.setPort 8 1
+

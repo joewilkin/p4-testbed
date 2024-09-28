@@ -1240,6 +1240,11 @@ class MiniEdit( Frame ):
         self.p4SwitchPopup.add_separator()
         self.p4SwitchPopup.add_command(label='Properties', font=self.font, command=self.p4SwitchDetails )
 
+        self.p4SwitchRunPopup = Menu(self.top, tearoff=0)
+        self.p4SwitchRunPopup.add_command(label='P4 Switch Options', font=self.font)
+        self.p4SwitchRunPopup.add_separator()
+        self.p4SwitchRunPopup.add_command(label='Terminal', font=self.font, command=self.xterm )
+
         self.linkPopup = Menu(self.top, tearoff=0)
         self.linkPopup.add_command(label='Link Options', font=self.font)
         self.linkPopup.add_separator()
@@ -2610,7 +2615,9 @@ class MiniEdit( Frame ):
         self.master.wait_window(p4SwitchBox.top)
         if p4SwitchBox.result:
             newSwitchOpts = {'nodeNum':self.switchOpts[name]['nodeNum']}
-            #newSwitchOpts = self.switchOpts[name]
+            newSwitchOpts['switchType'] = self.switchOpts[name]['switchType']
+            newSwitchOpts['controllers'] = self.switchOpts[name]['controllers']
+            
             if len(p4SwitchBox.result['hostname']) > 0:
                 newSwitchOpts['hostname'] = p4SwitchBox.result['hostname']
                 name = p4SwitchBox.result['hostname']
@@ -2858,6 +2865,8 @@ class MiniEdit( Frame ):
 
             elif 'LegacySwitch' in tags:
                 newSwitch = net.addSwitch( name , cls=LegacySwitch)
+            elif 'P4Switch' in tags:
+                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path='./toJoe/modbus.json', thrift_port=9090)
             elif 'LegacyRouter' in tags:
                 newSwitch = net.addHost( name , cls=LegacyRouter)
             elif 'Host' in tags:
@@ -2887,6 +2896,7 @@ class MiniEdit( Frame ):
                                            privateDirs=opts['privateDirectory'] )
                     else:
                         hostCls=Host
+                hostCls=P4Host
                 debug( hostCls, '\n' )
                 newHost = net.addHost( name,
                                        cls=hostCls,
@@ -3121,6 +3131,9 @@ class MiniEdit( Frame ):
                 if 'LegacySwitch' in tags:
                     self.net.get(name).start( [] )
                     info( name + ' ')
+                if 'P4Switch' in tags:
+                    self.net.get(name).start( [] )
+                    info( name + ' ')
             info('\n')
 
             self.postStartSetup()
@@ -3229,6 +3242,12 @@ class MiniEdit( Frame ):
                 self.p4SwitchPopup.tk_popup(event.x_root, event.y_root, 0)
             finally:
                 self.p4SwitchPopup.grab_release()
+        else:
+        # Mininet is running
+            try:
+                self.p4SwitchRunPopup.tk_popup(event.x_root, event.y_root, 0)
+            finally:
+                self.p4SwitchRunPopup.grab_release()
 
     def xterm( self, _ignore=None ):
         "Make an xterm when a button is pressed."
