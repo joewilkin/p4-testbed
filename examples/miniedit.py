@@ -648,9 +648,29 @@ class P4SwitchDialog(CustomDialog):
         if 'hostname' in self.prefValues:
             self.hostnameEntry.insert(0, self.prefValues['hostname'])
 
+        ### TAB 2
+        # Field for JSON Path
+        Label(self.propFrame, text="Path to JSON config file:").grid(row=1, sticky=E)
+        self.jsonPathEntry = Entry(self.propFrame)
+        self.jsonPathEntry.grid(row=1, column=1)
+        if 'jsonPath' in self.prefValues:
+            self.jsonPathEntry.insert(0, self.prefValues['jsonPath'])
+
     def apply(self):
-        results = {'hostname': self.hostnameEntry.get()}
+
+        results = {'hostname': self.hostnameEntry.get(),
+                   'jsonPath': self.jsonPathEntry.get()}
+        
         self.result = results
+        
+
+    def okAction(self):
+        if not os.path.isfile(self.jsonPathEntry.get()):
+            showerror(title='MiniEdit', message='Invalid JSON file, please try again.')
+            return
+        self.apply()
+        self.top.destroy()
+
 
 class SwitchDialog(CustomDialog):
 
@@ -1425,11 +1445,31 @@ class MiniEdit( Frame ):
         return toolbar
 
     def doRun( self ):
+        
+        if not self.validateP4Switches():
+            return
+
         "Run command."
         self.activate( 'Select' )
         for tool in self.tools:
             self.buttons[ tool ].config( state='disabled' )
         self.start()
+
+    def validateP4Switches( self ):
+
+        "Ensure at all P4 Switches on canvas have a specified JSON config file."
+
+        for widget, item in self.widgetToItem.items():
+            name = widget[ 'text' ]
+            tags = self.canvas.gettags( item )
+            if "P4Switch" in tags and 'jsonPath' not in self.switchOpts[name]:
+                print(f"P4 Switch '{name}' does not have a specified JSON config file path, please specify one before running network.")
+                showerror(title='Miniedit',
+                          message=f"P4 Switch '{name}' does not have a specified JSON config file path, please specifiy one before running network.")
+                return False
+            
+        return True
+
 
     def doStop( self ):
         "Stop command."
@@ -2622,6 +2662,9 @@ class MiniEdit( Frame ):
                 newSwitchOpts['hostname'] = p4SwitchBox.result['hostname']
                 name = p4SwitchBox.result['hostname']
                 widget[ 'text' ] = name
+            if len(p4SwitchBox.result['jsonPath']) > 0:
+                newSwitchOpts['jsonPath'] = p4SwitchBox.result['jsonPath']
+                
             self.switchOpts[name] = newSwitchOpts
             info( 'New switch details for ' + name + ' = ' + str(newSwitchOpts), '\n' )
 
@@ -2866,7 +2909,7 @@ class MiniEdit( Frame ):
             elif 'LegacySwitch' in tags:
                 newSwitch = net.addSwitch( name , cls=LegacySwitch)
             elif 'P4Switch' in tags:
-                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path='./toJoe/modbus.json', thrift_port=9090)
+                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
             elif 'LegacyRouter' in tags:
                 newSwitch = net.addHost( name , cls=LegacyRouter)
             elif 'Host' in tags:
@@ -2896,7 +2939,7 @@ class MiniEdit( Frame ):
                                            privateDirs=opts['privateDirectory'] )
                     else:
                         hostCls=Host
-                hostCls=P4Host
+                #hostCls=P4Host
                 debug( hostCls, '\n' )
                 newHost = net.addHost( name,
                                        cls=hostCls,
