@@ -1,0 +1,81 @@
+{
+	"application": {
+		"dpctl": "",
+		"ipBase": "10.0.0.0/8",
+		"netflow": {
+			"nflowAddId": 0,
+			"nflowTarget": "",
+			"nflowTimeout": "600"
+		},
+		"openFlowVersions": {
+			"ovsOf10": "1",
+			"ovsOf11": "0",
+			"ovsOf12": "0",
+			"ovsOf13": "0",
+			"ovsOf14": "0"
+		},
+		"sflow": {
+			"sflowHeader": "128",
+			"sflowPolling": "30",
+			"sflowSampling": "400",
+			"sflowTarget": ""
+		},
+		"startCLI": "1",
+		"switchType": "ovs",
+		"terminalType": "xterm"
+	},
+	"controllers": [],
+	"hosts": [
+		{
+			"number": "1",
+			"opts": {
+				"hostname": "h1",
+				"nodeNum": 1,
+				"nodeType": "Host",
+				"sched": "host",
+				"startCommand": "./toJoe/m h1 ifconfig h1-eth0 hw ether 00:00:00:00:00:01"
+			},
+			"x": "82.0",
+			"y": "124.0"
+		},
+		{
+			"number": "2",
+			"opts": {
+				"hostname": "h2",
+				"nodeNum": 2,
+				"nodeType": "Host",
+				"sched": "host",
+				"startCommand": "./toJoe/m h2 ifconfig h2-eth0 hw ether 00:00:00:00:00:02"
+			},
+			"x": "416.0",
+			"y": "124.0"
+		}
+	],
+	"links": [
+		{
+			"dest": "s1",
+			"opts": {},
+			"src": "h1"
+		},
+		{
+			"dest": "h2",
+			"opts": {},
+			"src": "s1"
+		}
+	],
+	"switches": [
+		{
+			"number": "0",
+			"opts": {
+				"dimage": "bmv2",
+				"hostname": "s1",
+				"nodeNum": 0,
+				"switchType": "p4Switch",
+				"startCommand": "/bin/bash"
+			},
+			"x": "244.0",
+			"y": "124.0"
+		}
+	],
+	"version": "2"
+}

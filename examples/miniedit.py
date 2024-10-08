@@ -1521,7 +1521,8 @@ class MiniEdit( Frame ):
         if f is None:
             return
         self.newTopology()
-        loadedTopology = self.convertJsonUnicode(json.load(f))
+        #loadedTopology = self.convertJsonUnicode(json.load(f))
+        loadedTopology = json.load(f)
 
         # Load application preferences
         if 'application' in loadedTopology:
@@ -1560,7 +1561,6 @@ class MiniEdit( Frame ):
                     self.controllers[hostname] = controller['opts']
                     icon = self.findWidgetByName(hostname)
                     icon.bind('<Button-3>', self.do_controllerPopup )
-
 
         # Load hosts
         hosts = loadedTopology['hosts']
@@ -1615,6 +1615,10 @@ class MiniEdit( Frame ):
                 self.addNode('LegacySwitch', nodeNum, float(x), float(y), name=hostname)
                 icon = self.findWidgetByName(hostname)
                 icon.bind('<Button-3>', self.do_legacySwitchPopup )
+            elif switch['opts']['switchType'] == "p4Switch":
+                self.addNode('P4Switch', nodeNum, float(x), float(y), name=hostname)
+                icon = self.findWidgetByName(hostname)
+                icon.bind('<Button-3>', self.do_p4SwitchPopup )
             else:
                 self.addNode('Switch', nodeNum, float(x), float(y), name=hostname)
                 icon = self.findWidgetByName(hostname)
