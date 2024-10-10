@@ -26,7 +26,7 @@ from sys import exit  # pylint: disable=redefined-builtin
 from mininet.log import info, debug, warn, setLogLevel
 from mininet.net import Mininet, VERSION
 from mininet.util import (netParse, ipAdd, quietRun,
-                          buildTopo, custom, customClass, StrictVersion )
+                          buildTopo, custom, customClass, StrictVersion, decode )
 from mininet.term import makeTerm, cleanUpScreens
 from mininet.node import (Controller, RemoteController, NOX, OVSController,
                           CPULimitedHost, Host, Node,
@@ -859,6 +859,50 @@ class SwitchDialog(CustomDialog):
             results['switchType'] = 'default'
         self.result = results
 
+class P4SwitchOptionsDialog(CustomDialog):
+    def __init__(self, master, title, node):
+        CustomDialog.__init__(self, master, title)
+        self.node = node
+
+    def body(self, master):
+        self.rootFrame = master
+        self.ruleFrame = Frame(self.rootFrame)
+        self.ruleFrame.grid(row=1, column=1)
+
+        self.testButton = Button(self.rootFrame, text="Load Rules onto Switch", command=self.test)
+        self.testButton.grid(row=0, column=1)
+
+        self.vlanInterfaces = 0
+        Label(self.ruleFrame, text="Rule:").grid(row=0, column=0, sticky=E)
+        self.addButton = Button( self.ruleFrame, text='Add', command=self.addRule)
+        self.addButton.grid(row=0, column=1)
+
+        self.ruleFrame = VerticalScrolledTable(self.ruleFrame, rows=0, columns=1, title='Rules')
+        self.ruleFrame.grid(row=1, column=0, sticky='nswe', columnspan=2)
+        self.ruleTableFrame = self.ruleFrame.interior
+        self.ruleTableFrame.addRow(value=['Rule'], readonly=True)
+
+        rules = []
+        for rule in rules:
+            self.ruleTableFrame.addRow(value=rule)
+
+    def test(self):
+        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+        out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 1 => 2")
+        exitcode = process.wait()
+        print([decode(out), decode(err), exitcode])
+        process.kill()
+
+        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+        out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 2 => 1")
+        exitcode = process.wait()
+        print([decode(out), decode(err), exitcode])
+        process.kill()
+        
+        print("clicked test")
+
+    def addRule( self ):
+        self.ruleTableFrame.addRow()
 
 class VerticalScrolledTable(LabelFrame):
     """A pure Tkinter scrollable frame that actually works!
@@ -1261,7 +1305,7 @@ class MiniEdit( Frame ):
         self.p4SwitchPopup.add_command(label='Properties', font=self.font, command=self.p4SwitchDetails )
 
         self.p4SwitchRunPopup = Menu(self.top, tearoff=0)
-        self.p4SwitchRunPopup.add_command(label='P4 Switch Options', font=self.font)
+        self.p4SwitchRunPopup.add_command(label='P4 Switch Options', font=self.font, command=self.p4SwitchOptions )
         self.p4SwitchRunPopup.add_separator()
         self.p4SwitchRunPopup.add_command(label='Terminal', font=self.font, command=self.xterm )
 
@@ -2672,7 +2716,29 @@ class MiniEdit( Frame ):
             self.switchOpts[name] = newSwitchOpts
             info( 'New switch details for ' + name + ' = ' + str(newSwitchOpts), '\n' )
 
+    def p4SwitchOptions( self, _ignore=None ):
+        if ( self.selection is None or
+             self.net is None or
+             self.selection not in self.itemToWidget ):
+            return
+        
+        widget = self.itemToWidget[ self.selection ]
+        name = widget[ 'text' ]
+        if name not in self.net.nameToNode:
+            return
+        tags = self.canvas.gettags( self.selection )
+        if 'P4Switch' not in tags:
+            return
+        
+        """
+        name = self.itemToWidget[ self.selection ][ 'text' ]
+        if name not in self.net.nameToNode:
+            return
+        term = makeTerm( self.net.nameToNode[ name ], 'Host', term=self.appPrefs['terminalType'] )
+        """
 
+        p4SwitchOptionsBox = P4SwitchOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
+        
 
     def linkUp( self ):
         if ( self.selection is None or
