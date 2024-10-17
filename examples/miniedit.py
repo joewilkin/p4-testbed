@@ -863,6 +863,7 @@ class P4SwitchOptionsDialog(CustomDialog):
     def __init__(self, master, title, node):
         CustomDialog.__init__(self, master, title)
         self.node = node
+        self.tables = self.getTables()
 
     def body(self, master):
         self.rootFrame = master
@@ -887,22 +888,36 @@ class P4SwitchOptionsDialog(CustomDialog):
             self.ruleTableFrame.addRow(value=rule)
 
     def test(self):
+        
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
         out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 1 => 2")
         exitcode = process.wait()
-        print([decode(out), decode(err), exitcode])
+        #print([decode(out), decode(err), exitcode])
+        print(decode(out))
         process.kill()
 
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
         out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 2 => 1")
         exitcode = process.wait()
-        print([decode(out), decode(err), exitcode])
+        #print([decode(out), decode(err), exitcode])
+        print(decode(out))
         process.kill()
         
-        print("clicked test")
-
+    
     def addRule( self ):
         self.ruleTableFrame.addRow()
+
+    def getTables(self):
+        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+        out, _ = process.communicate(input=b"show_tables")
+        process.kill()
+        tables = decode(out).split("\n")[3:-2]
+        tables[0] = tables[0][12:]
+        tableSplit = []
+        for i in range(len(tables)):
+            tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:])})
+
+        return tableSplit
 
 class VerticalScrolledTable(LabelFrame):
     """A pure Tkinter scrollable frame that actually works!
