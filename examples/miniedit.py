@@ -57,6 +57,7 @@ else:
                           StringVar, IntVar, E, W, EW, NW, Y, VERTICAL, SOLID,
                           CENTER, RIGHT, LEFT, BOTH, TRUE, FALSE )
     from tkinter.ttk import Notebook
+    from tkinter.ttk import Combobox
     from tkinter.messagebox import showerror
     from tkinter import font as tkFont
     from tkinter import simpledialog as tkSimpleDialog
@@ -640,7 +641,7 @@ class P4SwitchDialog(CustomDialog):
         n.add(self.ipFrame, text='Multihoming IPs')
         n.pack()
 
-        ### TAB 1
+        ### ROW 1
         # Field for Hostname
         Label(self.propFrame, text="Hostname:").grid(row=0, sticky=E)
         self.hostnameEntry = Entry(self.propFrame)
@@ -648,8 +649,19 @@ class P4SwitchDialog(CustomDialog):
         if 'hostname' in self.prefValues:
             self.hostnameEntry.insert(0, self.prefValues['hostname'])
 
-        ### TAB 2
+        ### ROW 2
         # Field for JSON Path
+        
+        """
+        myFormats = [
+            ('Mininet Topology','*.mn'),
+            ('All Files','*'),
+        ]
+        f = tkFileDialog.askopenfile(filetypes=myFormats, mode='rb')
+        if f is None:
+            return
+        """
+        #Button(self.propFrame, text="Open JSON File").grid(row=1, sticky=E)
         Label(self.propFrame, text="Path to JSON config file:").grid(row=1, sticky=E)
         self.jsonPathEntry = Entry(self.propFrame)
         self.jsonPathEntry.grid(row=1, column=1)
@@ -861,51 +873,62 @@ class SwitchDialog(CustomDialog):
 
 class P4SwitchOptionsDialog(CustomDialog):
     def __init__(self, master, title, node):
-        CustomDialog.__init__(self, master, title)
         self.node = node
+        # get tables and table metadata
         self.tables = self.getTables()
+        # get just tables
+        self.tableValues = []
+        for t in self.tables:
+            self.tableValues.append(t["table"])
+ 
+        CustomDialog.__init__(self, master, title)
 
     def body(self, master):
-        self.rootFrame = master
-        self.ruleFrame = Frame(self.rootFrame)
-        self.ruleFrame.grid(row=1, column=1)
 
+        self.rootFrame = master
+        self.entryFrame = Frame(self.rootFrame)
+        self.entryFrame.grid(row=1, column=1)
+
+        """
         self.testButton = Button(self.rootFrame, text="Load Rules onto Switch", command=self.test)
         self.testButton.grid(row=0, column=1)
+        """
 
-        self.vlanInterfaces = 0
+        """
         Label(self.ruleFrame, text="Rule:").grid(row=0, column=0, sticky=E)
         self.addButton = Button( self.ruleFrame, text='Add', command=self.addRule)
         self.addButton.grid(row=0, column=1)
+        """
+        Label(self.rootFrame, text="Table:").grid(row=0, column=0, sticky=E)
+        self.combobox = Combobox(self.rootFrame, values=self.tableValues)
+        self.combobox.grid(row=0, column=1)
+        self.getEntriesButton = Button(self.rootFrame, text="Show Entries", command=self.getEntries)
+        self.getEntriesButton.grid(row=0, column=3)
 
-        self.ruleFrame = VerticalScrolledTable(self.ruleFrame, rows=0, columns=1, title='Rules')
-        self.ruleFrame.grid(row=1, column=0, sticky='nswe', columnspan=2)
-        self.ruleTableFrame = self.ruleFrame.interior
-        self.ruleTableFrame.addRow(value=['Rule'], readonly=True)
+        self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=4, title='Entries')
+        self.entryFrame.grid(row=1, column=0, sticky='nswe', columnspan=2)
+        self.entryTableFrame = self.entryFrame.interior
+        self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
 
-        rules = []
-        for rule in rules:
-            self.ruleTableFrame.addRow(value=rule)
-
-    def test(self):
-        
-        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-        out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 1 => 2")
-        exitcode = process.wait()
-        #print([decode(out), decode(err), exitcode])
-        print(decode(out))
-        process.kill()
-
-        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-        out, err = process.communicate(input=b"table_add MyIngress.forwarding MyIngress.forward 2 => 1")
-        exitcode = process.wait()
-        #print([decode(out), decode(err), exitcode])
-        print(decode(out))
-        process.kill()
-        
+        entries = []
+        for entry in entries:
+            self.entryTableFrame.addRow(value=entry) 
     
-    def addRule( self ):
-        self.ruleTableFrame.addRow()
+    def addEntry( self ):
+        self.entryTableFrame.addRow()
+
+    def getEntries(self):
+        selected_table = self.combobox.get()
+        if selected_table == "":
+            return
+        else:
+            for table in self.tables:
+                if table["table"] == selected_table:
+                    for entry in table["entries"]:
+                        self.entryTableFrame.addRow(value=[entry["number"], entry["keys"], entry["action"], entry["action_data"]])
+                break
+            
+        
 
     def getTables(self):
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
@@ -915,8 +938,39 @@ class P4SwitchOptionsDialog(CustomDialog):
         tables[0] = tables[0][12:]
         tableSplit = []
         for i in range(len(tables)):
-            tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:])})
+            tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
 
+        for t in range(len(tableSplit)):
+            process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+            out, _ = process.communicate(input=bytes(f"table_dump {tableSplit[t]["table"]}", 'utf-8'))
+            process.kill()
+            lines = out.decode().split("\n")
+            for i in range(len(lines)):
+                if lines[i] == "**********":
+                    number = lines[i + 1].split()[2]
+                    i += 3
+                    keys = []
+                    while lines[i].split()[0] == "*":
+                        if len(lines[i].split()) == 5:
+                            keys.append(lines[i].split()[1] + " : " + lines[i].split()[3] + " " + lines[i].split()[4])
+                        elif len(lines[i].split()) == 4:
+                            keys.append(lines[i].split()[1][:-1] + " : " + lines[i].split()[2] + " " + lines[i].split()[3])
+                        i += 1
+                    action = lines[i].split()[2]
+                    try:
+                        action_data = lines[i].split()[4]
+                    except:
+                        action_data = "-"
+                    """
+                    print("number:", number)
+                    print("keys:", keys)
+                    print("action", action)
+                    print("action data:", action_data)
+                    """
+                    tableSplit[t]["entries"].append({"number": number, "keys": keys, "action": action, "action_data": action_data})
+                    
+                        
+        print(tableSplit)
         return tableSplit
 
 class VerticalScrolledTable(LabelFrame):
