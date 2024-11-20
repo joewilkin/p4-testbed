@@ -20,7 +20,7 @@
 			"sflowSampling": "400",
 			"sflowTarget": ""
 		},
-		"startCLI": "1",
+		"startCLI": "0",
 		"switchType": "ovs",
 		"terminalType": "xterm"
 	},

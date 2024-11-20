@@ -58,6 +58,7 @@ else:
                           CENTER, RIGHT, LEFT, BOTH, TRUE, FALSE )
     from tkinter.ttk import Notebook
     from tkinter.ttk import Combobox
+    from tkinter.ttk import Progressbar
     from tkinter.messagebox import showerror
     from tkinter import font as tkFont
     from tkinter import simpledialog as tkSimpleDialog
@@ -871,20 +872,19 @@ class SwitchDialog(CustomDialog):
             results['switchType'] = 'default'
         self.result = results
 
-class P4SwitchOptionsDialog(CustomDialog):
+class TableOptionsDialog(CustomDialog):
     def __init__(self, master, title, node):
         self.node = node
         # get tables and table metadata
-        self.tables = self.getTables()
+        self.tables = self.getTables(master)
         # get just tables
         self.tableValues = []
         for t in self.tables:
             self.tableValues.append(t["table"])
- 
         CustomDialog.__init__(self, master, title)
 
     def body(self, master):
-
+ 
         self.rootFrame = master
         self.entryFrame = Frame(self.rootFrame)
         self.entryFrame.grid(row=1, column=1)
@@ -905,8 +905,11 @@ class P4SwitchOptionsDialog(CustomDialog):
         self.getEntriesButton = Button(self.rootFrame, text="Show Entries", command=self.getEntries)
         self.getEntriesButton.grid(row=0, column=3)
 
-        self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=4, title='Entries')
-        self.entryFrame.grid(row=1, column=0, sticky='nswe', columnspan=2)
+        self.addRowButton = Button(self.rootFrame, text="Add Rule", command=self.addEntry)
+        self.addRowButton.grid(row=1, column=3)
+
+        self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
+        self.entryFrame.grid(row=2, column=0, sticky='nswe', columnspan=2)
         self.entryTableFrame = self.entryFrame.interior
         self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
 
@@ -915,9 +918,17 @@ class P4SwitchOptionsDialog(CustomDialog):
             self.entryTableFrame.addRow(value=entry) 
     
     def addEntry( self ):
-        self.entryTableFrame.addRow()
+        self.entryTableFrame.addRow(value=["", "", ""])
 
     def getEntries(self):
+
+        # get rid of previous rows
+        self.entryTableFrame.clear()
+        self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
+        #self.entryTableFrame = self.entryFrame.interior
+        #self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
+
+
         selected_table = self.combobox.get()
         if selected_table == "":
             return
@@ -925,12 +936,10 @@ class P4SwitchOptionsDialog(CustomDialog):
             for table in self.tables:
                 if table["table"] == selected_table:
                     for entry in table["entries"]:
-                        self.entryTableFrame.addRow(value=[entry["number"], entry["keys"], entry["action"], entry["action_data"]])
-                break
+                        self.entryTableFrame.addRow(value=[entry["keys"], entry["action"], entry["action_data"]])
+                    break
             
-        
-
-    def getTables(self):
+    def getTables(self, master):
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
         out, _ = process.communicate(input=b"show_tables")
         process.kill()
@@ -960,18 +969,44 @@ class P4SwitchOptionsDialog(CustomDialog):
                     try:
                         action_data = lines[i].split()[4]
                     except:
-                        action_data = "-"
-                    """
-                    print("number:", number)
-                    print("keys:", keys)
-                    print("action", action)
-                    print("action data:", action_data)
-                    """
+                        action_data = ""
                     tableSplit[t]["entries"].append({"number": number, "keys": keys, "action": action, "action_data": action_data})
-                    
-                        
-        print(tableSplit)
         return tableSplit
+    
+    def okAction(self):
+
+        selected_table = self.combobox.get()
+        if selected_table != "":
+            print("table:", selected_table)
+            # clear old entries
+            self.clearTable(selected_table)
+            # add new entries
+            self.addEntries(selected_table)
+
+        self.apply()
+        self.top.destroy()
+
+    def clearTable(self, table):
+        # clear the entries of a table
+        process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+        out, _ = process.communicate(input=bytes(f"table_clear {table}", "utf-8"))
+        print(out.decode())
+        process.kill()
+
+    def addEntries(self, table):
+        # add new entries to a table
+        print("add entries")
+        if len(self.entryTableFrame._widgets) > 1:
+            for row in self.entryTableFrame._widgets[1:]:
+                process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+                print("trying to add:", f"table_add {table} {row[1].get()} {int(row[0].get().split()[3])} => {int(row[2].get())}")
+                out, _ = process.communicate(input=bytes(f"table_add {table} {row[1].get()} {int(row[0].get().split()[3])} => {int(row[2].get())}", "utf-8"))
+                print(out.decode())
+                process.kill()
+                for entry in row:
+                    print(entry.get(), end=", ")
+                print()
+    
 
 class VerticalScrolledTable(LabelFrame):
     """A pure Tkinter scrollable frame that actually works!
@@ -1045,16 +1080,37 @@ class TableFrame(Frame):
         # debug( "Adding row " + str(self.rows +1), '\n' )
         current_row = []
         for column in range(self.columns):
-            label = Entry(self, borderwidth=0)
+            if column == 0:
+                label = Entry(self, width=50, borderwidth=0)
+            elif type(value[column]) == list:
+                if len(value[column]) >= 2:
+                    label = Combobox(self, values=value[column])
+                else:
+                    label = Entry(self, borderwidth=0)
+                    value[column] = value[column][0]
+            else:
+                label = Entry(self, borderwidth=0)
             label.grid(row=self.rows, column=column, sticky="wens", padx=1, pady=1)
-            if value is not None:
+            if value is not None and type(value[column]) is list:
+                label.insert(0, value[column][0])
+            elif value is not None:
                 label.insert(0, value[column])
             if readonly:
-                label.configure(state='readonly')
+                label.configure(state='readonly', justify=CENTER)
             current_row.append(label)
         self._widgets.append(current_row)
         self.update_idletasks()
         self.rows += 1
+
+    def clear(self):
+        for widget in self._widgets:
+            for w in widget:
+                w.grid_forget()
+        self._widgets = []
+        self.rows = 0
+        self.update_idletasks()
+
+
 
 class LinkDialog(tkSimpleDialog.Dialog):
 
@@ -1374,7 +1430,7 @@ class MiniEdit( Frame ):
         self.p4SwitchPopup.add_command(label='Properties', font=self.font, command=self.p4SwitchDetails )
 
         self.p4SwitchRunPopup = Menu(self.top, tearoff=0)
-        self.p4SwitchRunPopup.add_command(label='P4 Switch Options', font=self.font, command=self.p4SwitchOptions )
+        self.p4SwitchRunPopup.add_command(label='Table Options', font=self.font, command=self.p4SwitchOptions )
         self.p4SwitchRunPopup.add_separator()
         self.p4SwitchRunPopup.add_command(label='Terminal', font=self.font, command=self.xterm )
 
@@ -2806,7 +2862,7 @@ class MiniEdit( Frame ):
         term = makeTerm( self.net.nameToNode[ name ], 'Host', term=self.appPrefs['terminalType'] )
         """
 
-        p4SwitchOptionsBox = P4SwitchOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
+        tableOptionsBox = TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
         
 
     def linkUp( self ):
