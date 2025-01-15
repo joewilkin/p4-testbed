@@ -911,7 +911,7 @@ class TableOptionsDialog(CustomDialog):
         self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
         self.entryFrame.grid(row=2, column=0, sticky='nswe', columnspan=2)
         self.entryTableFrame = self.entryFrame.interior
-        self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
+        self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
 
         entries = []
         for entry in entries:
@@ -1367,7 +1367,7 @@ class MiniEdit( Frame ):
         self.images = miniEditImages()
         self.buttons = {}
         self.active = None
-        self.tools = ( 'Select', 'Host', 'P4Switch', 'Switch', 'LegacySwitch', 'LegacyRouter', 'NetLink', 'Controller' )
+        self.tools = ( 'Select', 'Host', 'P4Switch', 'HardwareSwitch', 'Switch', 'LegacySwitch', 'LegacyRouter', 'NetLink', 'Controller')
         self.customColors = { 'Switch': 'darkGreen', 'Host': 'blue' }
         self.toolbar = self.createToolbar()
 
@@ -3924,6 +3924,9 @@ gGPLHwLwcMIo12Qxu0ABAQA7
             K5CYII=
         """),
 
+        'HardwareSwitch': PhotoImage(data=r"""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"""),
+
+
         'OldSwitch': PhotoImage( data=r"""
             R0lGODlhIAAYAPcAMf//////zP//mf//Zv//M///AP/M///MzP/M
             mf/MZv/MM//MAP+Z//+ZzP+Zmf+ZZv+ZM/+ZAP9m//9mzP9mmf9m
@@ -3976,6 +3979,7 @@ gGPLHwLwcMIo12Qxu0ABAQA7
             Cx0+hGhQoiuKBy1irChxY0GNHgeCDAlgZEiTHlFuVImRJUWXEGEy
             lBmxI8mSNknm1Dnx5sCAADs=
         """ )
+
     }
 
 def addDictOption( opts, choicesDict, default, name, helpStr=None ):
