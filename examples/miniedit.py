@@ -653,32 +653,39 @@ class P4SwitchDialog(CustomDialog):
         ### ROW 2
         # Field for JSON Path
         
-        """
-        myFormats = [
-            ('Mininet Topology','*.mn'),
-            ('All Files','*'),
-        ]
-        f = tkFileDialog.askopenfile(filetypes=myFormats, mode='rb')
-        if f is None:
-            return
-        """
-        #Button(self.propFrame, text="Open JSON File").grid(row=1, sticky=E)
-        Label(self.propFrame, text="Path to JSON config file:").grid(row=1, sticky=E)
-        self.jsonPathEntry = Entry(self.propFrame)
-        self.jsonPathEntry.grid(row=1, column=1)
+        
+        Button(self.propFrame, text="Open JSON File", command=self.getJson).grid(row=1, sticky=E)
+        #Label(self.propFrame, text="Path to JSON config file:").grid(row=1, sticky=E)
+        self.jsonPathLabel = Label(self.propFrame)
+        self.jsonPathLabel.grid(row=1, column=1)
         if 'jsonPath' in self.prefValues:
             self.jsonPathEntry.insert(0, self.prefValues['jsonPath'])
 
+    def getJson(self):
+        myFormats = [
+            ('Compiled P4 Program (JSON)','*.json'),
+            ('All Files','*'),
+        ]
+        self.f = tkFileDialog.askopenfile(filetypes=myFormats, mode='rb')
+        if self.f is None:
+            return
+        
+        print("selected file:", str(self.f.name))
+        self.jsonPathLabel.config(text=str(self.f.name))
+
     def apply(self):
 
+        #results = {'hostname': self.hostnameEntry.get(),
+                   #'jsonPath': self.jsonPathEntry.get()}
+                   
         results = {'hostname': self.hostnameEntry.get(),
-                   'jsonPath': self.jsonPathEntry.get()}
+                   'jsonPath': str(self.f.name)}
         
         self.result = results
         
 
     def okAction(self):
-        if not os.path.isfile(self.jsonPathEntry.get()):
+        if not os.path.isfile(str(self.f.name)):
             showerror(title='MiniEdit', message='Invalid JSON file, please try again.')
             return
         self.apply()
@@ -887,7 +894,9 @@ class TableOptionsDialog(CustomDialog):
  
         self.rootFrame = master
         self.entryFrame = Frame(self.rootFrame)
-        self.entryFrame.grid(row=1, column=1)
+        #self.entryFrame.grid(row=1, column=1)
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
+
 
         """
         self.testButton = Button(self.rootFrame, text="Load Rules onto Switch", command=self.test)
@@ -899,17 +908,17 @@ class TableOptionsDialog(CustomDialog):
         self.addButton = Button( self.ruleFrame, text='Add', command=self.addRule)
         self.addButton.grid(row=0, column=1)
         """
-        Label(self.rootFrame, text="Table:").grid(row=0, column=0, sticky=E)
+        Label(self.rootFrame, text="Table:").grid(row=1, column=1, sticky='e')
         self.combobox = Combobox(self.rootFrame, values=self.tableValues)
-        self.combobox.grid(row=0, column=1)
-        self.getEntriesButton = Button(self.rootFrame, text="Show Entries", command=self.getEntries)
-        self.getEntriesButton.grid(row=0, column=3)
+        self.combobox.grid(row=1, column=2, sticky='we')
+        self.getEntriesButton = Button(self.rootFrame, text="Select", command=self.getEntries)
+        self.getEntriesButton.grid(row=1, column=3, sticky='w')
 
         self.addRowButton = Button(self.rootFrame, text="Add Rule", command=self.addEntry)
-        self.addRowButton.grid(row=1, column=3)
+        self.addRowButton.grid(row=1, column=4)
 
         self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
-        self.entryFrame.grid(row=2, column=0, sticky='nswe', columnspan=2)
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
         self.entryTableFrame = self.entryFrame.interior
         self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
 
