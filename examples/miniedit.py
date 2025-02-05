@@ -646,18 +646,19 @@ class P4SwitchDialog(CustomDialog):
         # Field for Hostname
         Label(self.propFrame, text="Hostname:").grid(row=0, sticky=E)
         self.hostnameEntry = Entry(self.propFrame)
-        self.hostnameEntry.grid(row=0, column=1)
+        self.hostnameEntry.grid(row=0, column=1, padx=10, pady=10)
         if 'hostname' in self.prefValues:
             self.hostnameEntry.insert(0, self.prefValues['hostname'])
+
 
         ### ROW 2
         # Field for JSON Path
         
         
-        Button(self.propFrame, text="Open JSON File", command=self.getJson).grid(row=1, sticky=E)
-        #Label(self.propFrame, text="Path to JSON config file:").grid(row=1, sticky=E)
-        self.jsonPathLabel = Label(self.propFrame)
-        self.jsonPathLabel.grid(row=1, column=1)
+        Label(self.propFrame, text="Compiled P4 Program:").grid(row=1, sticky=E, padx=(10, 0))
+        self.jsonPathEntry = Entry(self.propFrame)
+        self.jsonPathEntry.grid(row=1, column=1)
+        Button(self.propFrame, text="Open", command=self.getJson).grid(row=2, column=1, sticky=E, padx=10, pady=10)
         if 'jsonPath' in self.prefValues:
             self.jsonPathEntry.insert(0, self.prefValues['jsonPath'])
 
@@ -670,22 +671,18 @@ class P4SwitchDialog(CustomDialog):
         if self.f is None:
             return
         
-        print("selected file:", str(self.f.name))
-        self.jsonPathLabel.config(text=str(self.f.name))
+        print("Selected file", str(self.f.name))
+        self.jsonPathEntry.insert(0, str(self.f.name))
 
-    def apply(self):
-
-        #results = {'hostname': self.hostnameEntry.get(),
-                   #'jsonPath': self.jsonPathEntry.get()}
-                   
+    def apply(self):             
         results = {'hostname': self.hostnameEntry.get(),
-                   'jsonPath': str(self.f.name)}
+                   'jsonPath': self.jsonPathEntry.get()}
         
         self.result = results
         
 
     def okAction(self):
-        if not os.path.isfile(str(self.f.name)):
+        if not os.path.isfile(self.jsonPathEntry.get()):
             showerror(title='MiniEdit', message='Invalid JSON file, please try again.')
             return
         self.apply()
@@ -743,7 +740,7 @@ class SwitchDialog(CustomDialog):
 
         # Field for sflow
         Label(self.leftfieldFrame, text="Enable sFlow:").grid(row=rowCount, sticky=E)
-        self.sflow = IntVar()
+        self.specifiedsflow = IntVar()
         self.sflowButton = Checkbutton(self.leftfieldFrame, variable=self.sflow)
         self.sflowButton.grid(row=rowCount, column=1, sticky=W)
         if 'sflow' in self.prefValues:
@@ -895,7 +892,7 @@ class TableOptionsDialog(CustomDialog):
         self.rootFrame = master
         self.entryFrame = Frame(self.rootFrame)
         #self.entryFrame.grid(row=1, column=1)
-        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=5, padx=20, pady=(10, 20))
 
 
         """
@@ -908,14 +905,17 @@ class TableOptionsDialog(CustomDialog):
         self.addButton = Button( self.ruleFrame, text='Add', command=self.addRule)
         self.addButton.grid(row=0, column=1)
         """
-        Label(self.rootFrame, text="Table:").grid(row=1, column=1, sticky='e')
+        Label(self.rootFrame, text="Table:").grid(row=1, column=1, sticky='e', padx=10, pady=(10, 0))
         self.combobox = Combobox(self.rootFrame, values=self.tableValues)
-        self.combobox.grid(row=1, column=2, sticky='we')
+        self.combobox.grid(row=1, column=2, sticky='we', pady=(10, 0), padx=(0, 10))
         self.getEntriesButton = Button(self.rootFrame, text="Select", command=self.getEntries)
-        self.getEntriesButton.grid(row=1, column=3, sticky='w')
+        self.getEntriesButton.grid(row=1, column=3, sticky='w', pady=(10, 0))
 
         self.addRowButton = Button(self.rootFrame, text="Add Rule", command=self.addEntry)
-        self.addRowButton.grid(row=1, column=4)
+        self.addRowButton.grid(row=1, column=4, padx=10, pady=(10, 0))
+
+        self.addFromFileButton = Button(self.rootFrame, text="Import Rules from File", command=self.addEntriesFromFile)
+        self.addFromFileButton.grid(row=1, column=5, padx=(0, 10), pady=(10, 0))
 
         self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
         self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
@@ -1004,7 +1004,6 @@ class TableOptionsDialog(CustomDialog):
 
     def addEntries(self, table):
         # add new entries to a table
-        print("add entries")
         if len(self.entryTableFrame._widgets) > 1:
             for row in self.entryTableFrame._widgets[1:]:
                 process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
@@ -1015,7 +1014,18 @@ class TableOptionsDialog(CustomDialog):
                 for entry in row:
                     print(entry.get(), end=", ")
                 print()
-    
+
+    def addEntriesFromFile(self):
+        # add new entries to a table from a file
+        myFormats = [
+            ('All Files','*'),
+        ]
+        self.f = tkFileDialog.askopenfile(filetypes=myFormats, mode='rb')
+        if self.f is None:
+            return
+
+        print("Selected file", str(self.f.name))
+        
 
 class VerticalScrolledTable(LabelFrame):
     """A pure Tkinter scrollable frame that actually works!
