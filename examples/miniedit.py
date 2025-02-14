@@ -1914,7 +1914,7 @@ class MiniEdit( Frame ):
                 name = widget[ 'text' ]
                 tags = self.canvas.gettags( item )
                 x1, y1 = self.canvas.coords( item )
-                if 'Switch' in tags or 'LegacySwitch' in tags or 'LegacyRouter' in tags:
+                if 'Switch' in tags or 'LegacySwitch' in tags or 'LegacyRouter' in tags or 'P4Switch'in tags:
                     nodeNum = self.switchOpts[name]['nodeNum']
                     nodeToSave = {'number':str(nodeNum),
                                   'x':str(x1),
