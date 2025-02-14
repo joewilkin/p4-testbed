@@ -1,0 +1,1605 @@
+Calling target program-options parser
+[11:50:57.141] [bmv2] [D] [thread 52661] Set default default entry for table 'MyIngress.ipv4_host': NoAction - 
+[11:50:57.141] [bmv2] [D] [thread 52661] Set default default entry for table 'tbl_hash121': hash121 - 
+Adding interface s5-eth1 as port 1
+[11:50:57.141] [bmv2] [D] [thread 52661] Adding interface s5-eth1 as port 1
+Adding interface s5-eth2 as port 2
+[11:50:57.151] [bmv2] [D] [thread 52661] Adding interface s5-eth2 as port 2
+Server listening on 0.0.0.0:50055
+[11:50:57.154] [bmv2] [I] [thread 52661] Starting Thrift server on port 9094
+[11:50:57.154] [bmv2] [I] [thread 52661] Thrift server was started
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Processing packet received on port 1
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Parser 'parser': start
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] Bytes parsed: 14
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Parser 'parser': end
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Looking up key:
+
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] Action hash121
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.207] [bmv2] [T] [thread 52671] [0.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.207] [bmv2] [D] [thread 52671] [0.0] [cxt 0] Egress port is 0
+[11:50:57.207] [bmv2] [D] [thread 52672] [0.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.207] [bmv2] [D] [thread 52672] [0.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.207] [bmv2] [D] [thread 52672] [0.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.207] [bmv2] [D] [thread 52672] [0.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.207] [bmv2] [D] [thread 52672] [0.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.208] [bmv2] [D] [thread 52676] [0.0] [cxt 0] Transmitting packet of size 110 out of port 0
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Processing packet received on port 1
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Parser 'parser': start
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] Bytes parsed: 14
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Parser 'parser': end
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Looking up key:
+
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] Action hash121
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.208] [bmv2] [T] [thread 52671] [1.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.208] [bmv2] [D] [thread 52671] [1.0] [cxt 0] Egress port is 0
+[11:50:57.208] [bmv2] [D] [thread 52672] [1.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.208] [bmv2] [D] [thread 52672] [1.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.208] [bmv2] [D] [thread 52672] [1.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.208] [bmv2] [D] [thread 52672] [1.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.208] [bmv2] [D] [thread 52672] [1.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.208] [bmv2] [D] [thread 52676] [1.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Processing packet received on port 1
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Parser 'parser': start
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] Bytes parsed: 14
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Parser 'parser': end
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Looking up key:
+
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] Action hash121
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.224] [bmv2] [T] [thread 52671] [2.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.224] [bmv2] [D] [thread 52671] [2.0] [cxt 0] Egress port is 0
+[11:50:57.224] [bmv2] [D] [thread 52672] [2.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.224] [bmv2] [D] [thread 52672] [2.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.224] [bmv2] [D] [thread 52672] [2.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.224] [bmv2] [D] [thread 52672] [2.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.224] [bmv2] [D] [thread 52672] [2.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.224] [bmv2] [D] [thread 52676] [2.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Processing packet received on port 1
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Parser 'parser': start
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] Bytes parsed: 14
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Parser 'parser': end
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Looking up key:
+
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] Action hash121
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.227] [bmv2] [T] [thread 52671] [3.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.227] [bmv2] [D] [thread 52671] [3.0] [cxt 0] Egress port is 0
+[11:50:57.227] [bmv2] [D] [thread 52672] [3.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.227] [bmv2] [D] [thread 52672] [3.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.227] [bmv2] [D] [thread 52672] [3.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.227] [bmv2] [D] [thread 52672] [3.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.227] [bmv2] [D] [thread 52672] [3.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.227] [bmv2] [D] [thread 52676] [3.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Processing packet received on port 1
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Parser 'parser': start
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] Bytes parsed: 14
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Parser 'parser': end
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Looking up key:
+
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] Action hash121
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.255] [bmv2] [T] [thread 52671] [4.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.255] [bmv2] [D] [thread 52671] [4.0] [cxt 0] Egress port is 0
+[11:50:57.255] [bmv2] [D] [thread 52672] [4.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.255] [bmv2] [D] [thread 52672] [4.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.255] [bmv2] [D] [thread 52672] [4.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.255] [bmv2] [D] [thread 52672] [4.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.255] [bmv2] [D] [thread 52672] [4.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.255] [bmv2] [D] [thread 52676] [4.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Processing packet received on port 2
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Parser 'parser': start
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] Bytes parsed: 14
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Parser 'parser': end
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Looking up key:
+
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] Action hash121
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.295] [bmv2] [T] [thread 52671] [5.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.295] [bmv2] [D] [thread 52671] [5.0] [cxt 0] Egress port is 0
+[11:50:57.295] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Processing packet received on port 2
+[11:50:57.295] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Parser 'parser': start
+[11:50:57.295] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.295] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.295] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.295] [bmv2] [D] [thread 52672] [5.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.295] [bmv2] [D] [thread 52672] [5.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.295] [bmv2] [D] [thread 52672] [5.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.295] [bmv2] [D] [thread 52672] [5.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.296] [bmv2] [D] [thread 52672] [5.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.296] [bmv2] [D] [thread 52676] [5.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[11:50:57.295] [bmv2] [T] [thread 52671] [6.0] [cxt 0] Bytes parsed: 14
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Parser 'parser': end
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Looking up key:
+
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] Action hash121
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.296] [bmv2] [T] [thread 52671] [6.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.296] [bmv2] [D] [thread 52671] [6.0] [cxt 0] Egress port is 0
+[11:50:57.296] [bmv2] [D] [thread 52672] [6.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.296] [bmv2] [D] [thread 52672] [6.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.296] [bmv2] [D] [thread 52672] [6.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.296] [bmv2] [D] [thread 52672] [6.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.296] [bmv2] [D] [thread 52672] [6.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.296] [bmv2] [D] [thread 52676] [6.0] [cxt 0] Transmitting packet of size 70 out of port 0
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Processing packet received on port 2
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Parser 'parser': start
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] Bytes parsed: 14
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Parser 'parser': end
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Looking up key:
+
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] Action hash121
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.314] [bmv2] [T] [thread 52671] [7.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.314] [bmv2] [D] [thread 52671] [7.0] [cxt 0] Egress port is 0
+[11:50:57.314] [bmv2] [D] [thread 52672] [7.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.314] [bmv2] [D] [thread 52672] [7.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.314] [bmv2] [D] [thread 52672] [7.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.314] [bmv2] [D] [thread 52672] [7.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.314] [bmv2] [D] [thread 52672] [7.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.314] [bmv2] [D] [thread 52676] [7.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Processing packet received on port 2
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Parser 'parser': start
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] Bytes parsed: 14
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Parser 'parser': end
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Looking up key:
+
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] Action hash121
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.322] [bmv2] [T] [thread 52671] [8.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.322] [bmv2] [D] [thread 52671] [8.0] [cxt 0] Egress port is 0
+[11:50:57.322] [bmv2] [D] [thread 52672] [8.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.322] [bmv2] [D] [thread 52672] [8.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.322] [bmv2] [D] [thread 52672] [8.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.322] [bmv2] [D] [thread 52672] [8.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.322] [bmv2] [D] [thread 52672] [8.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.322] [bmv2] [D] [thread 52676] [8.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Processing packet received on port 2
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Parser 'parser': start
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] Bytes parsed: 14
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Parser 'parser': end
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Looking up key:
+
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] Action hash121
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.421] [bmv2] [T] [thread 52671] [9.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.421] [bmv2] [D] [thread 52671] [9.0] [cxt 0] Egress port is 0
+[11:50:57.421] [bmv2] [D] [thread 52672] [9.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.421] [bmv2] [D] [thread 52672] [9.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.421] [bmv2] [D] [thread 52672] [9.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.421] [bmv2] [D] [thread 52672] [9.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.421] [bmv2] [D] [thread 52672] [9.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.422] [bmv2] [D] [thread 52676] [9.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Processing packet received on port 2
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Parser 'parser': start
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] Bytes parsed: 14
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Parser 'parser': end
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Looking up key:
+
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] Action hash121
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.432] [bmv2] [T] [thread 52671] [10.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.432] [bmv2] [D] [thread 52671] [10.0] [cxt 0] Egress port is 0
+[11:50:57.432] [bmv2] [D] [thread 52672] [10.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.432] [bmv2] [D] [thread 52672] [10.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.432] [bmv2] [D] [thread 52672] [10.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.432] [bmv2] [D] [thread 52672] [10.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.432] [bmv2] [D] [thread 52672] [10.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.432] [bmv2] [D] [thread 52676] [10.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[11:50:57.446] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Processing packet received on port 2
+[11:50:57.446] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Parser 'parser': start
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] Bytes parsed: 14
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Parser 'parser': end
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Looking up key:
+
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] Action hash121
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.447] [bmv2] [T] [thread 52671] [11.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.447] [bmv2] [D] [thread 52671] [11.0] [cxt 0] Egress port is 0
+[11:50:57.447] [bmv2] [D] [thread 52672] [11.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.447] [bmv2] [D] [thread 52672] [11.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.447] [bmv2] [D] [thread 52672] [11.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.447] [bmv2] [D] [thread 52672] [11.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.447] [bmv2] [D] [thread 52672] [11.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.447] [bmv2] [D] [thread 52676] [11.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Processing packet received on port 1
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Parser 'parser': start
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] Bytes parsed: 14
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Parser 'parser': end
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Looking up key:
+
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] Action hash121
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.479] [bmv2] [T] [thread 52671] [12.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.479] [bmv2] [D] [thread 52671] [12.0] [cxt 0] Egress port is 0
+[11:50:57.479] [bmv2] [D] [thread 52672] [12.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.479] [bmv2] [D] [thread 52672] [12.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.479] [bmv2] [D] [thread 52672] [12.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.479] [bmv2] [D] [thread 52672] [12.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.479] [bmv2] [D] [thread 52672] [12.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.479] [bmv2] [D] [thread 52676] [12.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Processing packet received on port 1
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Parser 'parser': start
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] Bytes parsed: 14
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Parser 'parser': end
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Looking up key:
+
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] Action hash121
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.480] [bmv2] [T] [thread 52671] [13.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.480] [bmv2] [D] [thread 52671] [13.0] [cxt 0] Egress port is 0
+[11:50:57.480] [bmv2] [D] [thread 52672] [13.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.480] [bmv2] [D] [thread 52672] [13.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.480] [bmv2] [D] [thread 52672] [13.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.480] [bmv2] [D] [thread 52672] [13.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.480] [bmv2] [D] [thread 52672] [13.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.480] [bmv2] [D] [thread 52676] [13.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Processing packet received on port 1
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Parser 'parser': start
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] Bytes parsed: 14
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Parser 'parser': end
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Looking up key:
+
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] Action hash121
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.679] [bmv2] [T] [thread 52671] [14.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.679] [bmv2] [D] [thread 52671] [14.0] [cxt 0] Egress port is 0
+[11:50:57.679] [bmv2] [D] [thread 52672] [14.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.679] [bmv2] [D] [thread 52672] [14.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.679] [bmv2] [D] [thread 52672] [14.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.679] [bmv2] [D] [thread 52672] [14.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.679] [bmv2] [D] [thread 52672] [14.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.679] [bmv2] [D] [thread 52676] [14.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Processing packet received on port 1
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Parser 'parser': start
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] Bytes parsed: 14
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Parser 'parser': end
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Looking up key:
+
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] Action hash121
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.693] [bmv2] [T] [thread 52671] [15.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.693] [bmv2] [D] [thread 52671] [15.0] [cxt 0] Egress port is 0
+[11:50:57.693] [bmv2] [D] [thread 52672] [15.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.693] [bmv2] [D] [thread 52672] [15.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.693] [bmv2] [D] [thread 52672] [15.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.693] [bmv2] [D] [thread 52672] [15.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.693] [bmv2] [D] [thread 52672] [15.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.693] [bmv2] [D] [thread 52676] [15.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Processing packet received on port 2
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Parser 'parser': start
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] Bytes parsed: 14
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Parser 'parser': end
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Looking up key:
+
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] Action hash121
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.696] [bmv2] [T] [thread 52671] [16.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.696] [bmv2] [D] [thread 52671] [16.0] [cxt 0] Egress port is 0
+[11:50:57.696] [bmv2] [D] [thread 52672] [16.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.696] [bmv2] [D] [thread 52672] [16.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.696] [bmv2] [D] [thread 52672] [16.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.696] [bmv2] [D] [thread 52672] [16.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.696] [bmv2] [D] [thread 52672] [16.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.696] [bmv2] [D] [thread 52676] [16.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Processing packet received on port 1
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Parser 'parser': start
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] Bytes parsed: 14
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Parser 'parser': end
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Looking up key:
+
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] Action hash121
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.738] [bmv2] [T] [thread 52671] [17.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.738] [bmv2] [D] [thread 52671] [17.0] [cxt 0] Egress port is 0
+[11:50:57.738] [bmv2] [D] [thread 52672] [17.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.738] [bmv2] [D] [thread 52672] [17.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.738] [bmv2] [D] [thread 52672] [17.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.738] [bmv2] [D] [thread 52672] [17.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.738] [bmv2] [D] [thread 52672] [17.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.738] [bmv2] [D] [thread 52676] [17.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Processing packet received on port 1
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Parser 'parser': start
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] Bytes parsed: 14
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Parser 'parser': end
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Looking up key:
+
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] Action hash121
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.935] [bmv2] [T] [thread 52671] [18.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.935] [bmv2] [D] [thread 52671] [18.0] [cxt 0] Egress port is 0
+[11:50:57.935] [bmv2] [D] [thread 52672] [18.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.935] [bmv2] [D] [thread 52672] [18.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.935] [bmv2] [D] [thread 52672] [18.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.935] [bmv2] [D] [thread 52672] [18.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.935] [bmv2] [D] [thread 52672] [18.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.935] [bmv2] [D] [thread 52676] [18.0] [cxt 0] Transmitting packet of size 110 out of port 0
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Processing packet received on port 1
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Parser 'parser': start
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] Bytes parsed: 14
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Parser 'parser': end
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Looking up key:
+
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] Action hash121
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.945] [bmv2] [T] [thread 52671] [19.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.945] [bmv2] [D] [thread 52671] [19.0] [cxt 0] Egress port is 0
+[11:50:57.945] [bmv2] [D] [thread 52672] [19.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.945] [bmv2] [D] [thread 52672] [19.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.945] [bmv2] [D] [thread 52672] [19.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.945] [bmv2] [D] [thread 52672] [19.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.945] [bmv2] [D] [thread 52672] [19.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.945] [bmv2] [D] [thread 52676] [19.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Processing packet received on port 1
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Parser 'parser': start
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] Bytes parsed: 14
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Parser 'parser': end
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Looking up key:
+
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] Action hash121
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.952] [bmv2] [T] [thread 52671] [20.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.952] [bmv2] [D] [thread 52671] [20.0] [cxt 0] Egress port is 0
+[11:50:57.952] [bmv2] [D] [thread 52672] [20.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.952] [bmv2] [D] [thread 52672] [20.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.952] [bmv2] [D] [thread 52672] [20.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.952] [bmv2] [D] [thread 52672] [20.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.952] [bmv2] [D] [thread 52672] [20.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.952] [bmv2] [D] [thread 52676] [20.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Processing packet received on port 2
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Parser 'parser': start
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] Bytes parsed: 14
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Parser 'parser': end
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Looking up key:
+
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] Action hash121
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.965] [bmv2] [T] [thread 52671] [21.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.965] [bmv2] [D] [thread 52671] [21.0] [cxt 0] Egress port is 0
+[11:50:57.965] [bmv2] [D] [thread 52672] [21.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.965] [bmv2] [D] [thread 52672] [21.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.965] [bmv2] [D] [thread 52672] [21.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.965] [bmv2] [D] [thread 52672] [21.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.965] [bmv2] [D] [thread 52672] [21.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.965] [bmv2] [D] [thread 52676] [21.0] [cxt 0] Transmitting packet of size 220 out of port 0
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Processing packet received on port 2
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Parser 'parser': start
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Extracting header 'ethernet'
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] Bytes parsed: 14
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Parser 'parser': end
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Pipeline 'ingress': start
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Looking up key:
+
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Action entry is hash121 - 
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] Action hash121
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:57.967] [bmv2] [T] [thread 52671] [22.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Pipeline 'ingress': end
+[11:50:57.967] [bmv2] [D] [thread 52671] [22.0] [cxt 0] Egress port is 0
+[11:50:57.967] [bmv2] [D] [thread 52672] [22.0] [cxt 0] Pipeline 'egress': start
+[11:50:57.967] [bmv2] [D] [thread 52672] [22.0] [cxt 0] Pipeline 'egress': end
+[11:50:57.967] [bmv2] [D] [thread 52672] [22.0] [cxt 0] Deparser 'deparser': start
+[11:50:57.967] [bmv2] [D] [thread 52672] [22.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:57.967] [bmv2] [D] [thread 52672] [22.0] [cxt 0] Deparser 'deparser': end
+[11:50:57.967] [bmv2] [D] [thread 52676] [22.0] [cxt 0] Transmitting packet of size 122 out of port 0
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Processing packet received on port 2
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Parser 'parser': start
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] Bytes parsed: 14
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Parser 'parser': end
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Looking up key:
+
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] Action hash121
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.168] [bmv2] [T] [thread 52671] [23.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.168] [bmv2] [D] [thread 52671] [23.0] [cxt 0] Egress port is 0
+[11:50:58.169] [bmv2] [D] [thread 52672] [23.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.169] [bmv2] [D] [thread 52672] [23.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.169] [bmv2] [D] [thread 52672] [23.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.169] [bmv2] [D] [thread 52672] [23.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.169] [bmv2] [D] [thread 52672] [23.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.169] [bmv2] [D] [thread 52676] [23.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Processing packet received on port 1
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Parser 'parser': start
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] Bytes parsed: 14
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Parser 'parser': end
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Looking up key:
+
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] Action hash121
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.211] [bmv2] [T] [thread 52671] [24.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.211] [bmv2] [D] [thread 52671] [24.0] [cxt 0] Egress port is 0
+[11:50:58.211] [bmv2] [D] [thread 52672] [24.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.211] [bmv2] [D] [thread 52672] [24.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.211] [bmv2] [D] [thread 52672] [24.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.211] [bmv2] [D] [thread 52672] [24.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.211] [bmv2] [D] [thread 52672] [24.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.211] [bmv2] [D] [thread 52676] [24.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Processing packet received on port 2
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Parser 'parser': start
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] Bytes parsed: 14
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Parser 'parser': end
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Looking up key:
+
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] Action hash121
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.255] [bmv2] [T] [thread 52671] [25.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.255] [bmv2] [D] [thread 52671] [25.0] [cxt 0] Egress port is 0
+[11:50:58.256] [bmv2] [D] [thread 52672] [25.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.256] [bmv2] [D] [thread 52672] [25.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.256] [bmv2] [D] [thread 52672] [25.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.256] [bmv2] [D] [thread 52672] [25.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.256] [bmv2] [D] [thread 52672] [25.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.256] [bmv2] [D] [thread 52676] [25.0] [cxt 0] Transmitting packet of size 110 out of port 0
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Processing packet received on port 2
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Parser 'parser': start
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] Bytes parsed: 14
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Parser 'parser': end
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Looking up key:
+
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] Action hash121
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.380] [bmv2] [T] [thread 52671] [26.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.380] [bmv2] [D] [thread 52671] [26.0] [cxt 0] Egress port is 0
+[11:50:58.380] [bmv2] [D] [thread 52672] [26.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.380] [bmv2] [D] [thread 52672] [26.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.380] [bmv2] [D] [thread 52672] [26.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.380] [bmv2] [D] [thread 52672] [26.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.380] [bmv2] [D] [thread 52672] [26.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.380] [bmv2] [D] [thread 52676] [26.0] [cxt 0] Transmitting packet of size 180 out of port 0
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Processing packet received on port 2
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Parser 'parser': start
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] Bytes parsed: 14
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Parser 'parser': end
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Looking up key:
+
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] Action hash121
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.427] [bmv2] [T] [thread 52671] [27.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.427] [bmv2] [D] [thread 52671] [27.0] [cxt 0] Egress port is 0
+[11:50:58.427] [bmv2] [D] [thread 52672] [27.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.427] [bmv2] [D] [thread 52672] [27.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.427] [bmv2] [D] [thread 52672] [27.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.427] [bmv2] [D] [thread 52672] [27.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.427] [bmv2] [D] [thread 52672] [27.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.427] [bmv2] [D] [thread 52676] [27.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Processing packet received on port 1
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Parser 'parser': start
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Extracting header 'ethernet'
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] Bytes parsed: 14
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Parser 'parser': end
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Pipeline 'ingress': start
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Looking up key:
+
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Action entry is hash121 - 
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] Action hash121
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:58.758] [bmv2] [T] [thread 52671] [28.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Pipeline 'ingress': end
+[11:50:58.758] [bmv2] [D] [thread 52671] [28.0] [cxt 0] Egress port is 0
+[11:50:58.758] [bmv2] [D] [thread 52672] [28.0] [cxt 0] Pipeline 'egress': start
+[11:50:58.758] [bmv2] [D] [thread 52672] [28.0] [cxt 0] Pipeline 'egress': end
+[11:50:58.758] [bmv2] [D] [thread 52672] [28.0] [cxt 0] Deparser 'deparser': start
+[11:50:58.758] [bmv2] [D] [thread 52672] [28.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:58.758] [bmv2] [D] [thread 52672] [28.0] [cxt 0] Deparser 'deparser': end
+[11:50:58.758] [bmv2] [D] [thread 52676] [28.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Processing packet received on port 1
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Parser 'parser': start
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Extracting header 'ethernet'
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] Bytes parsed: 14
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Parser 'parser': end
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Pipeline 'ingress': start
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Looking up key:
+
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Action entry is hash121 - 
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] Action hash121
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:59.022] [bmv2] [T] [thread 52671] [29.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Pipeline 'ingress': end
+[11:50:59.022] [bmv2] [D] [thread 52671] [29.0] [cxt 0] Egress port is 0
+[11:50:59.022] [bmv2] [D] [thread 52672] [29.0] [cxt 0] Pipeline 'egress': start
+[11:50:59.022] [bmv2] [D] [thread 52672] [29.0] [cxt 0] Pipeline 'egress': end
+[11:50:59.022] [bmv2] [D] [thread 52672] [29.0] [cxt 0] Deparser 'deparser': start
+[11:50:59.022] [bmv2] [D] [thread 52672] [29.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:59.022] [bmv2] [D] [thread 52672] [29.0] [cxt 0] Deparser 'deparser': end
+[11:50:59.022] [bmv2] [D] [thread 52676] [29.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Processing packet received on port 2
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Parser 'parser': start
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Extracting header 'ethernet'
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] Bytes parsed: 14
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Parser 'parser': end
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Pipeline 'ingress': start
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Looking up key:
+
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Action entry is hash121 - 
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] Action hash121
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:59.246] [bmv2] [T] [thread 52671] [30.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Pipeline 'ingress': end
+[11:50:59.246] [bmv2] [D] [thread 52671] [30.0] [cxt 0] Egress port is 0
+[11:50:59.247] [bmv2] [D] [thread 52672] [30.0] [cxt 0] Pipeline 'egress': start
+[11:50:59.247] [bmv2] [D] [thread 52672] [30.0] [cxt 0] Pipeline 'egress': end
+[11:50:59.247] [bmv2] [D] [thread 52672] [30.0] [cxt 0] Deparser 'deparser': start
+[11:50:59.247] [bmv2] [D] [thread 52672] [30.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:59.247] [bmv2] [D] [thread 52672] [30.0] [cxt 0] Deparser 'deparser': end
+[11:50:59.247] [bmv2] [D] [thread 52676] [30.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Processing packet received on port 2
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Parser 'parser': start
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Extracting header 'ethernet'
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:59.589] [bmv2] [T] [thread 52671] [31.0] [cxt 0] Bytes parsed: 14
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Parser 'parser': end
+[11:50:59.589] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Pipeline 'ingress': start
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:59.590] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Looking up key:
+
+[11:50:59.590] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:59.590] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Action entry is hash121 - 
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] Action hash121
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:59.590] [bmv2] [T] [thread 52671] [31.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:59.590] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Pipeline 'ingress': end
+[11:50:59.590] [bmv2] [D] [thread 52671] [31.0] [cxt 0] Egress port is 0
+[11:50:59.590] [bmv2] [D] [thread 52672] [31.0] [cxt 0] Pipeline 'egress': start
+[11:50:59.590] [bmv2] [D] [thread 52672] [31.0] [cxt 0] Pipeline 'egress': end
+[11:50:59.590] [bmv2] [D] [thread 52672] [31.0] [cxt 0] Deparser 'deparser': start
+[11:50:59.590] [bmv2] [D] [thread 52672] [31.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:59.590] [bmv2] [D] [thread 52672] [31.0] [cxt 0] Deparser 'deparser': end
+[11:50:59.590] [bmv2] [D] [thread 52676] [31.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Processing packet received on port 1
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Parser 'parser': start
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Extracting header 'ethernet'
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Parser state 'start': key is 86dd
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] Bytes parsed: 14
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Parser 'parser': end
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Pipeline 'ingress': start
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] Applying table 'tbl_hash121'
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Looking up key:
+
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Table 'tbl_hash121': miss
+[11:50:59.958] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Action entry is hash121 - 
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] Action hash121
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:50:59.958] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:50:59.959] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:50:59.959] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:50:59.959] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:50:59.959] [bmv2] [T] [thread 52671] [32.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:50:59.959] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Pipeline 'ingress': end
+[11:50:59.959] [bmv2] [D] [thread 52671] [32.0] [cxt 0] Egress port is 0
+[11:50:59.959] [bmv2] [D] [thread 52672] [32.0] [cxt 0] Pipeline 'egress': start
+[11:50:59.959] [bmv2] [D] [thread 52672] [32.0] [cxt 0] Pipeline 'egress': end
+[11:50:59.959] [bmv2] [D] [thread 52672] [32.0] [cxt 0] Deparser 'deparser': start
+[11:50:59.959] [bmv2] [D] [thread 52672] [32.0] [cxt 0] Deparsing header 'ethernet'
+[11:50:59.959] [bmv2] [D] [thread 52672] [32.0] [cxt 0] Deparser 'deparser': end
+[11:50:59.959] [bmv2] [D] [thread 52676] [32.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Processing packet received on port 2
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Parser 'parser': start
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] Bytes parsed: 14
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Parser 'parser': end
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Looking up key:
+
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.111] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] Action hash121
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.111] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.112] [bmv2] [T] [thread 52671] [33.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.112] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.112] [bmv2] [D] [thread 52671] [33.0] [cxt 0] Egress port is 0
+[11:51:00.112] [bmv2] [D] [thread 52672] [33.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.112] [bmv2] [D] [thread 52672] [33.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.112] [bmv2] [D] [thread 52672] [33.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.112] [bmv2] [D] [thread 52672] [33.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.112] [bmv2] [D] [thread 52672] [33.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.112] [bmv2] [D] [thread 52676] [33.0] [cxt 0] Transmitting packet of size 70 out of port 0
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Processing packet received on port 1
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Parser 'parser': start
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] Bytes parsed: 14
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Parser 'parser': end
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Looking up key:
+
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] Action hash121
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.216] [bmv2] [T] [thread 52671] [34.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.216] [bmv2] [D] [thread 52671] [34.0] [cxt 0] Egress port is 0
+[11:51:00.216] [bmv2] [D] [thread 52672] [34.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.216] [bmv2] [D] [thread 52672] [34.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.216] [bmv2] [D] [thread 52672] [34.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.216] [bmv2] [D] [thread 52672] [34.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.216] [bmv2] [D] [thread 52672] [34.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.217] [bmv2] [D] [thread 52676] [34.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Processing packet received on port 2
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Parser 'parser': start
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] Bytes parsed: 14
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Parser 'parser': end
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Looking up key:
+
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] Action hash121
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.444] [bmv2] [T] [thread 52671] [35.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.444] [bmv2] [D] [thread 52671] [35.0] [cxt 0] Egress port is 0
+[11:51:00.444] [bmv2] [D] [thread 52672] [35.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.444] [bmv2] [D] [thread 52672] [35.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.444] [bmv2] [D] [thread 52672] [35.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.444] [bmv2] [D] [thread 52672] [35.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.444] [bmv2] [D] [thread 52672] [35.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.445] [bmv2] [D] [thread 52676] [35.0] [cxt 0] Transmitting packet of size 107 out of port 0
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Processing packet received on port 2
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Parser 'parser': start
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] Bytes parsed: 14
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Parser 'parser': end
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Looking up key:
+
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] Action hash121
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.481] [bmv2] [T] [thread 52671] [36.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.481] [bmv2] [D] [thread 52671] [36.0] [cxt 0] Egress port is 0
+[11:51:00.482] [bmv2] [D] [thread 52672] [36.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.482] [bmv2] [D] [thread 52672] [36.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.482] [bmv2] [D] [thread 52672] [36.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.482] [bmv2] [D] [thread 52672] [36.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.482] [bmv2] [D] [thread 52672] [36.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.482] [bmv2] [D] [thread 52676] [36.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Processing packet received on port 1
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Parser 'parser': start
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.623] [bmv2] [T] [thread 52671] [37.0] [cxt 0] Bytes parsed: 14
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Parser 'parser': end
+[11:51:00.623] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.623] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.623] [bmv2] [T] [thread 52671] [37.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.624] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Looking up key:
+
+[11:51:00.624] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.624] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] Action hash121
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.624] [bmv2] [T] [thread 52671] [37.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.624] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.624] [bmv2] [D] [thread 52671] [37.0] [cxt 0] Egress port is 0
+[11:51:00.624] [bmv2] [D] [thread 52672] [37.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.624] [bmv2] [D] [thread 52672] [37.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.624] [bmv2] [D] [thread 52672] [37.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.624] [bmv2] [D] [thread 52672] [37.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.624] [bmv2] [D] [thread 52672] [37.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.624] [bmv2] [D] [thread 52676] [37.0] [cxt 0] Transmitting packet of size 70 out of port 0
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Processing packet received on port 1
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Parser 'parser': start
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Extracting header 'ethernet'
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:00.831] [bmv2] [T] [thread 52671] [38.0] [cxt 0] Bytes parsed: 14
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Parser 'parser': end
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Pipeline 'ingress': start
+[11:51:00.831] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:00.831] [bmv2] [T] [thread 52671] [38.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Looking up key:
+
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:00.831] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Action entry is hash121 - 
+[11:51:00.831] [bmv2] [T] [thread 52671] [38.0] [cxt 0] Action hash121
+[11:51:00.831] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:00.832] [bmv2] [T] [thread 52671] [38.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:00.832] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Pipeline 'ingress': end
+[11:51:00.832] [bmv2] [D] [thread 52671] [38.0] [cxt 0] Egress port is 0
+[11:51:00.832] [bmv2] [D] [thread 52672] [38.0] [cxt 0] Pipeline 'egress': start
+[11:51:00.832] [bmv2] [D] [thread 52672] [38.0] [cxt 0] Pipeline 'egress': end
+[11:51:00.832] [bmv2] [D] [thread 52672] [38.0] [cxt 0] Deparser 'deparser': start
+[11:51:00.832] [bmv2] [D] [thread 52672] [38.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:00.832] [bmv2] [D] [thread 52672] [38.0] [cxt 0] Deparser 'deparser': end
+[11:51:00.832] [bmv2] [D] [thread 52676] [38.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Processing packet received on port 1
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Parser 'parser': start
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Extracting header 'ethernet'
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] Bytes parsed: 14
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Parser 'parser': end
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Pipeline 'ingress': start
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Looking up key:
+
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Action entry is hash121 - 
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] Action hash121
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:01.097] [bmv2] [T] [thread 52671] [39.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:01.097] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Pipeline 'ingress': end
+[11:51:01.098] [bmv2] [D] [thread 52671] [39.0] [cxt 0] Egress port is 0
+[11:51:01.098] [bmv2] [D] [thread 52672] [39.0] [cxt 0] Pipeline 'egress': start
+[11:51:01.098] [bmv2] [D] [thread 52672] [39.0] [cxt 0] Pipeline 'egress': end
+[11:51:01.098] [bmv2] [D] [thread 52672] [39.0] [cxt 0] Deparser 'deparser': start
+[11:51:01.098] [bmv2] [D] [thread 52672] [39.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:01.098] [bmv2] [D] [thread 52672] [39.0] [cxt 0] Deparser 'deparser': end
+[11:51:01.098] [bmv2] [D] [thread 52676] [39.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Processing packet received on port 2
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Parser 'parser': start
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Extracting header 'ethernet'
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:01.319] [bmv2] [T] [thread 52671] [40.0] [cxt 0] Bytes parsed: 14
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Parser 'parser': end
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Pipeline 'ingress': start
+[11:51:01.319] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:01.319] [bmv2] [T] [thread 52671] [40.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Looking up key:
+
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:01.319] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Action entry is hash121 - 
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] Action hash121
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:01.320] [bmv2] [T] [thread 52671] [40.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:01.320] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Pipeline 'ingress': end
+[11:51:01.320] [bmv2] [D] [thread 52671] [40.0] [cxt 0] Egress port is 0
+[11:51:01.320] [bmv2] [D] [thread 52672] [40.0] [cxt 0] Pipeline 'egress': start
+[11:51:01.320] [bmv2] [D] [thread 52672] [40.0] [cxt 0] Pipeline 'egress': end
+[11:51:01.320] [bmv2] [D] [thread 52672] [40.0] [cxt 0] Deparser 'deparser': start
+[11:51:01.320] [bmv2] [D] [thread 52672] [40.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:01.320] [bmv2] [D] [thread 52672] [40.0] [cxt 0] Deparser 'deparser': end
+[11:51:01.320] [bmv2] [D] [thread 52676] [40.0] [cxt 0] Transmitting packet of size 208 out of port 0
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Processing packet received on port 2
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Parser 'parser': start
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Extracting header 'ethernet'
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] Bytes parsed: 14
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Parser 'parser': end
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Pipeline 'ingress': start
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Looking up key:
+
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:01.327] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Action entry is hash121 - 
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] Action hash121
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:01.327] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:01.328] [bmv2] [T] [thread 52671] [41.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:01.328] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Pipeline 'ingress': end
+[11:51:01.328] [bmv2] [D] [thread 52671] [41.0] [cxt 0] Egress port is 0
+[11:51:01.328] [bmv2] [D] [thread 52672] [41.0] [cxt 0] Pipeline 'egress': start
+[11:51:01.328] [bmv2] [D] [thread 52672] [41.0] [cxt 0] Pipeline 'egress': end
+[11:51:01.328] [bmv2] [D] [thread 52672] [41.0] [cxt 0] Deparser 'deparser': start
+[11:51:01.328] [bmv2] [D] [thread 52672] [41.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:01.328] [bmv2] [D] [thread 52672] [41.0] [cxt 0] Deparser 'deparser': end
+[11:51:01.328] [bmv2] [D] [thread 52676] [41.0] [cxt 0] Transmitting packet of size 70 out of port 0
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Processing packet received on port 1
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Parser 'parser': start
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Parser 'parser' entering state 'start'
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Extracting header 'ethernet'
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Parser state 'start': key is 86dd
+[11:51:01.711] [bmv2] [T] [thread 52671] [42.0] [cxt 0] Bytes parsed: 14
+[11:51:01.711] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Parser 'parser': end
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Pipeline 'ingress': start
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(118) Condition "hdr.ipv4.isValid()" (node_2) is false
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] Applying table 'tbl_hash121'
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Looking up key:
+
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Table 'tbl_hash121': miss
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Action entry is hash121 - 
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] Action hash121
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(121) Primitive hdr.ipv4.version
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(122) Primitive hdr.ipv4.ihl
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(123) Primitive hdr.ipv4.diffserv
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(124) Primitive hdr.ipv4.totalLen
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(125) Primitive hdr.ipv4.identification
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(126) Primitive hdr.ipv4.flags
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(127) Primitive hdr.ipv4.fragOffset
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(128) Primitive hdr.ipv4.ttl
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(129) Primitive hdr.ipv4.protocol
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(130) Primitive hdr.ipv4.hdrChecksum
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(131) Primitive hdr.ipv4.srcAddr
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(132) Primitive hdr.ipv4.dstAddr
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash.p4(121) Primitive hash(meta.crcHash, HashAlgorithm.crc16, (bit<16>)0, {hdr.ipv4.version, ...
+[11:51:01.712] [bmv2] [T] [thread 52671] [42.0] [cxt 0] hash(base=0, max=65535) = 0
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Pipeline 'ingress': end
+[11:51:01.712] [bmv2] [D] [thread 52671] [42.0] [cxt 0] Egress port is 0
+[11:51:01.712] [bmv2] [D] [thread 52672] [42.0] [cxt 0] Pipeline 'egress': start
+[11:51:01.712] [bmv2] [D] [thread 52672] [42.0] [cxt 0] Pipeline 'egress': end
+[11:51:01.712] [bmv2] [D] [thread 52672] [42.0] [cxt 0] Deparser 'deparser': start
+[11:51:01.712] [bmv2] [D] [thread 52672] [42.0] [cxt 0] Deparsing header 'ethernet'
+[11:51:01.712] [bmv2] [D] [thread 52672] [42.0] [cxt 0] Deparser 'deparser': end
+[11:51:01.712] [bmv2] [D] [thread 52676] [42.0] [cxt 0] Transmitting packet of size 70 out of port 0
+open: No such file or directory
+open: No such file or directory
+open: No such file or directory
+open: No such file or directory

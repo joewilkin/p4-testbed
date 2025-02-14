@@ -26,7 +26,7 @@ from sys import exit  # pylint: disable=redefined-builtin
 from mininet.log import info, debug, warn, setLogLevel
 from mininet.net import Mininet, VERSION
 from mininet.util import (netParse, ipAdd, quietRun,
-                          buildTopo, custom, customClass, StrictVersion, decode )
+                          buildTopo, custom, customClass, decode )
 from mininet.term import makeTerm, cleanUpScreens
 from mininet.node import (Controller, RemoteController, NOX, OVSController,
                           CPULimitedHost, Host, Node,
@@ -73,6 +73,13 @@ else:
 # pylint: disable=missing-docstring,too-many-ancestors
 # pylint: disable=too-many-nested-blocks,too-many-arguments
 
+try:
+    import packaging.version # replacement for distutils.version
+    StrictVersion = packaging.version.parse
+except ImportError: # python2.7 lacks ModuleNotFoundError
+    import distutils.version # pylint: disable=deprecated-module
+    StrictVersion = distutils.version.StrictVersion
+    
 
 MINIEDIT_VERSION = '2.2.0.1'
 
@@ -960,7 +967,7 @@ class TableOptionsDialog(CustomDialog):
 
         for t in range(len(tableSplit)):
             process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-            out, _ = process.communicate(input=bytes(f"table_dump {tableSplit[t]["table"]}", 'utf-8'))
+            #out, _ = process.communicate(input=bytes(f"table_dump {tableSplit[t]["table"]}", 'utf-8'))
             process.kill()
             lines = out.decode().split("\n")
             for i in range(len(lines)):
