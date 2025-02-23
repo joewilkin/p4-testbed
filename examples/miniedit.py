@@ -3145,7 +3145,7 @@ class MiniEdit( Frame ):
                 else:
                     nodeNum = self.hostOpts[name]['nodeNum']
                     ipBaseNum, prefixLen = netParse( self.appPrefs['ipBase'] )
-                    ip = ipAdd(i=nodeNum, prefixLen=prefixLen, ipBaseNum=ipBaseNum)
+                    ip = ipAdd(i=nodeNum, prefixLen=prefixLen, ipBaseNum=ipBaseNum)                    
 
                 # Create the correct host class
                 if 'cores' in opts or 'cpu' in opts:
@@ -3162,11 +3162,20 @@ class MiniEdit( Frame ):
                         hostCls=Host
                 #hostCls=P4Host
                 debug( hostCls, '\n' )
-                newHost = net.addHost( name,
-                                       cls=hostCls,
-                                       ip=ip,
-                                       defaultRoute=defaultRoute
-                                      )
+
+                if 'mac' in opts and len(opts['mac']) > 0:
+                    newHost = net.addHost( name,
+                                            cls=hostCls,
+                                            ip=ip,
+                                            mac=opts['mac'],
+                                            defaultRoute=defaultRoute
+                                            )
+                else:
+                    newHost = net.addHost( name,
+                                            cls=hostCls,
+                                            ip=ip,
+                                            defaultRoute=defaultRoute
+                                            )
 
                 # Set the CPULimitedHost specific options
                 if 'cores' in opts:
@@ -3293,6 +3302,10 @@ class MiniEdit( Frame ):
                 # Run User Defined Start Command
                 if 'startCommand' in opts:
                     newHost.cmdPrint(opts['startCommand'])
+                # Run other user defined commands
+                if 'commands' in opts:
+                    for command in opts['commands']:
+                        newHost.cmdPrint(command)
             if 'Switch' in tags:
                 newNode = self.net.get(name)
                 opts = self.switchOpts[name]
