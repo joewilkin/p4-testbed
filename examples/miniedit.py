@@ -3279,6 +3279,11 @@ class MiniEdit( Frame ):
         self.buildNodes(net)
         self.buildLinks(net)
 
+        links = self.getLinks()
+        self.substitutible = self.find_substitutible(links)
+        print('The substitutible switches are', self.substitutible)
+        self.linked_switches = self.create_virtual_interfaces(self.substitutible, links)
+
         # Build network (we have to do this separately at the moment )
         net.build()
 
@@ -3376,10 +3381,79 @@ class MiniEdit( Frame ):
             info( "\n\n NOTE: PLEASE REMEMBER TO EXIT THE CLI BEFORE YOU PRESS THE STOP BUTTON. Not exiting will prevent MiniEdit from quitting and will prevent you from starting the network again during this session.\n\n")
             CLI(self.net)
 
+    def getLinks(self):
+        # get links
+        links = []
+        for key,link in self.links.items():
+            tags = self.canvas.gettags(key)
+            if 'data' in tags:
+                src=link['src']
+                dst=link['dest']
+                srcName, dstName = src[ 'text' ], dst[ 'text' ]
+                links.append([srcName, dstName])
+        return links
+
+    def find_substitutible(self, links):
+        print("Finding Substitutible Switches.")
+
+        host_neigbors = []
+        potential_switches = []
+
+        # find substitutible switches
+        # (switches only connected to other switches)
+        for l in links:
+            link = {'node1': l[0],
+                    'node2': l[1]}
+            print(link)
+            if link['node1'][0] == 'h':
+                if link['node2'][0] == 'p':
+                    if link['node2'] not in host_neigbors:
+                        host_neigbors.append(link['node2'])
+            elif link['node2'][0] == 'h':
+                if link['node1'][0] == 'p':
+                    if link['node1'] not in host_neigbors:
+                        host_neigbors.append(link['node1'])
+            else:
+                if link['node1'] not in potential_switches:
+                        potential_switches.append(link['node1'])
+                if link['node2'] not in potential_switches:
+                        potential_switches.append(link['node2'])
+        substitutible_switches = []
+        for switch in potential_switches:
+            if switch not in host_neigbors:
+                substitutible_switches.append(switch)
+        return substitutible_switches
+
+    def create_virtual_interfaces(self, substitiuble, links):
+        # find all switches linked to substitutible switches
+        linked_switches = []
+        for l in links:
+            link = {'node1': l[0],
+                    'node2': l[1]}
+            if link['node1'] in substitiuble:
+                linked_switches.append(link['node2'])
+            if link['node2'] in substitiuble:
+                linked_switches.append(link['node1'])
+
+        # create virtual interfaces for each adjacent switch
+        for switch in linked_switches:
+            bridge = 'br-%s-hw' % switch
+            os.system("sudo ip link add %s type bridge" % bridge)
+            os.system("sudo ip link set %s up" % bridge)
+
+        return linked_switches
+
     def start( self ):
         "Start network."
+
         if self.net is None:
             self.net = self.build()
+
+            # attach nodes to virtual interfaces
+            for sw in self.linked_switches:
+                attach_to = 'br-%s-hw' % sw
+                print('Attaching node', sw, 'to', attach_to)
+                Intf(name=attach_to, node=self.net.get(sw))
 
             # Since I am going to inject per switch controllers.
             # I can't call net.start().  I have to replicate what it
