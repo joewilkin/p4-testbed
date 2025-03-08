@@ -1409,9 +1409,15 @@ class MiniEdit( Frame ):
 
         # Initialize node data
         self.nodeBindings = self.createNodeBindings()
-        self.nodePrefixes = { 'LegacyRouter': 'r', 'LegacySwitch': 's', 'Switch': 's', 'Host': 'h' , 'Controller': 'c', 'P4Switch': 'p'}
+        self.nodePrefixes = { 'LegacyRouter': 'r', 'LegacySwitch': 's', 'Switch': 's', 'Host': 'h' , 'Controller': 'c', 'P4Switch': 'p', 'HardwareSwitch': 'w'}
         self.widgetToItem = {}
         self.itemToWidget = {}
+
+        # Initialize external interfaces
+        self.externalInterfaces = {'enp9s0', 'enp10s0'}
+
+        # Initialize counter for connections to hardware switch
+        self.hwConnectionsCounter = 0
 
         # Initialize link tool
         self.link = self.linkWidget = None
@@ -2430,6 +2436,14 @@ class MiniEdit( Frame ):
             self.switchOpts[name]['hostname']=name
             self.switchOpts[name]['switchType']='p4Switch'
             self.switchOpts[name]['controllers']=[]
+        if node == 'HardwareSwitch':
+            self.switchCount += 1
+            name = self.nodePrefixes[ node ] + str( self.switchCount )
+            self.switchOpts[name] = {}
+            self.switchOpts[name]['nodeNum']=self.switchCount
+            self.switchOpts[name]['hostname']=name
+            self.switchOpts[name]['switchType']='hardwareSwitch'
+            self.switchOpts[name]['controllers']=[]
         if node == 'Host':
             self.hostCount += 1
             name = self.nodePrefixes[ node ] + str( self.hostCount )
@@ -2467,6 +2481,7 @@ class MiniEdit( Frame ):
         if node == 'P4Switch':
             icon.bind('<Button-3>', self.do_p4SwitchPopup )
 
+
     def clickController( self, event ):
         "Add a new Controller to our canvas."
         self.newNode( 'Controller', event )
@@ -2489,7 +2504,11 @@ class MiniEdit( Frame ):
 
     def clickP4Switch( self, event ):
         "Add a new P4 Switch to our canvas."
-        self.newNode( 'P4Switch', event)
+        self.newNode( 'P4Switch', event )
+
+    def clickHardwareSwitch( self, event ):
+        "Add a new hardware switch to our canvas."
+        self.newNode( 'HardwareSwitch', event )
 
     def dragNetLink( self, event ):
         "Drag a link's endpoint to another node."
@@ -2677,6 +2696,15 @@ class MiniEdit( Frame ):
            ('Controller' in stags and 'Controller' in dtags)):
             self.releaseNetLink( event )
             return
+
+        if 'HardwareSwitch' in stags or 'HardwareSwitch' in dtags:
+            if self.hwConnectionsCounter < 2:
+                print("connecting to hardware switch")
+                self.hwConnectionsCounter += 1
+            else:
+                self.releaseNetLink(event)
+                return
+
 
         # Set link type
         linkType='data'
@@ -3131,6 +3159,8 @@ class MiniEdit( Frame ):
                 newSwitch = net.addSwitch( name , cls=LegacySwitch)
             elif 'P4Switch' in tags:
                 newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
+            elif 'HardwareSwitch' in tags:
+                pass
             elif 'LegacyRouter' in tags:
                 newSwitch = net.addHost( name , cls=LegacyRouter)
             elif 'Host' in tags:
@@ -3187,7 +3217,10 @@ class MiniEdit( Frame ):
                 if 'externalInterfaces' in opts:
                     for extInterface in opts['externalInterfaces']:
                         if self.checkIntf(extInterface):
+                            print("linking interface", extInterface)
                             Intf( extInterface, node=newHost )
+                        else:
+                            print("no")
                 if 'vlanInterfaces' in opts:
                     if len(opts['vlanInterfaces']) > 0:
                         info( 'Checking that OS is VLAN prepared\n' )
