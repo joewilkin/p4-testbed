@@ -1414,10 +1414,17 @@ class MiniEdit( Frame ):
         self.itemToWidget = {}
 
         # Initialize external interfaces
-        self.externalInterfaces = {'enp9s0', 'enp10s0'}
+        self.externalInterfaces = ['enp9s0', 'enp10s0']
+
+        # Initialize external interface bindings
+        self.externalInterfaceBindings = {}
 
         # Initialize counter for connections to hardware switch
         self.hwConnectionsCounter = 0
+
+        # Initialize counter for hardware switches
+        # (right now only one is allowed)
+        self.hwSwitches = 0
 
         # Initialize link tool
         self.link = self.linkWidget = None
@@ -2508,7 +2515,9 @@ class MiniEdit( Frame ):
 
     def clickHardwareSwitch( self, event ):
         "Add a new hardware switch to our canvas."
-        self.newNode( 'HardwareSwitch', event )
+        if self.hwSwitches < 1:
+            self.hwSwitches += 1
+            self.newNode( 'HardwareSwitch', event )
 
     def dragNetLink( self, event ):
         "Drag a link's endpoint to another node."
@@ -2681,7 +2690,9 @@ class MiniEdit( Frame ):
                 or dest in source.links or source in dest.links ):
             self.releaseNetLink( event )
             return
+        
         # For now, don't allow hosts to be directly linked
+        # For now, only allow hardware switch to be connected to host
         stags = self.canvas.gettags( self.widgetToItem[ source ] )
         dtags = self.canvas.gettags( target )
         # TODO: Make this less confusing
@@ -2693,13 +2704,31 @@ class MiniEdit( Frame ):
            ('Controller' in stags and 'LegacySwitch' in dtags) or
            ('Controller' in dtags and 'Host' in stags) or
            ('Controller' in stags and 'Host' in dtags) or
-           ('Controller' in stags and 'Controller' in dtags)):
+           ('Controller' in stags and 'Controller' in dtags) or
+           ('HardwareSwitch' in stags and 'Host' not in dtags) or
+           ('HardwareSwitch' in dtags and 'Host' not in stags)):
             self.releaseNetLink( event )
             return
 
+        # make sure that there cannot be more links to the hardware switch than external interfaces
         if 'HardwareSwitch' in stags or 'HardwareSwitch' in dtags:
-            if self.hwConnectionsCounter < 2:
-                print("connecting to hardware switch")
+            if self.hwConnectionsCounter < len(self.externalInterfaces):
+                # get name of host
+                hostName = ""
+                if source['text'][0] == 'h':
+                    hostName = source['text']
+                else:
+                    hostName = dest['text']
+
+                # get available external interface
+                for intf in self.externalInterfaces:
+                    if intf not in self.externalInterfaceBindings:
+                        self.externalInterfaceBindings[intf] = hostName
+                        self.hostOpts[hostName]['externalInterfaces'] = [intf]
+                        print(f"Connected {hostName} interface {intf} to hardware switch.")
+                        break
+
+
                 self.hwConnectionsCounter += 1
             else:
                 self.releaseNetLink(event)
@@ -3046,8 +3075,12 @@ class MiniEdit( Frame ):
             del source.links[ dest ]
             del dest.links[ source ]
             stags = self.canvas.gettags( self.widgetToItem[ source ] )
-            # dtags = self.canvas.gettags( self.widgetToItem[ dest ] )
+            dtags = self.canvas.gettags( self.widgetToItem[ dest ] )
             ltags = self.canvas.gettags( link )
+
+            if 'HardwareSwitch' in stags or 'HardwareSwitch' in dtags:
+                # decrement number of links connected to hardware switch
+                self.hwConnectionsCounter -= 1
 
             if 'control' in ltags:
                 controllerName = ''
@@ -3071,6 +3104,9 @@ class MiniEdit( Frame ):
 
         widget = self.itemToWidget[ item ]
         tags = self.canvas.gettags(item)
+        if 'HardwareSwitch' in tags:
+            # decrement hardware switch counter
+            self.hwSwitches -= 1
         if 'Controller' in tags:
             # remove from switch controller lists
             for searchwidget, searchitem in self.widgetToItem.items():
@@ -3288,6 +3324,9 @@ class MiniEdit( Frame ):
                 dst=link['dest']
                 linkopts=link['linkOpts']
                 srcName, dstName = src[ 'text' ], dst[ 'text' ]
+                if srcName[0] == 'w' or dstName[0] == 'w':
+                    # we don't actually need to add hardware switch links to the network
+                    break
                 srcNode, dstNode = net.nameToNode[ srcName ], net.nameToNode[ dstName ]
                 if linkopts:
                     net.addLink(srcNode, dstNode, cls=TCLink, **linkopts)
