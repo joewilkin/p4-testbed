@@ -71,7 +71,8 @@
 				"hostname": "s1",
 				"nodeNum": 0,
 				"switchType": "p4Switch",
-				"startCommand": "/bin/bash"
+				"startCommand": "/bin/bash",
+				"jsonPath": "/home/jinlab/Documents/Joe/research/examples/p4/basic.json"
 			},
 			"x": "244.0",
 			"y": "124.0"

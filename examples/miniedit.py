@@ -59,7 +59,7 @@ else:
     from tkinter.ttk import Notebook
     from tkinter.ttk import Combobox
     from tkinter.ttk import Progressbar
-    from tkinter.messagebox import showerror
+    from tkinter.messagebox import (showerror, showwarning)
     from tkinter import font as tkFont
     from tkinter import simpledialog as tkSimpleDialog
     from tkinter import filedialog as tkFileDialog
@@ -480,24 +480,31 @@ class HostDialog(CustomDialog):
         if 'hostname' in self.prefValues:
             self.hostnameEntry.insert(0, self.prefValues['hostname'])
 
-        # Field for Switch IP
+        # Field for IP address
         Label(self.propFrame, text="IP Address:").grid(row=1, sticky=E)
         self.ipEntry = Entry(self.propFrame)
         self.ipEntry.grid(row=1, column=1)
         if 'ip' in self.prefValues:
             self.ipEntry.insert(0, self.prefValues['ip'])
 
+        # Field for MAC address
+        Label(self.propFrame, text="MAC Address:").grid(row=2, sticky=E)
+        self.macEntry = Entry(self.propFrame)
+        self.macEntry.grid(row=2, column=1)
+        if 'mac' in self.prefValues:
+            self.ipEntry.insert(0, self.prefValues['mac'])
+
         # Field for default route
-        Label(self.propFrame, text="Default Route:").grid(row=2, sticky=E)
+        Label(self.propFrame, text="Default Route:").grid(row=3, sticky=E)
         self.routeEntry = Entry(self.propFrame)
-        self.routeEntry.grid(row=2, column=1)
+        self.routeEntry.grid(row=3, column=1)
         if 'defaultRoute' in self.prefValues:
             self.routeEntry.insert(0, self.prefValues['defaultRoute'])
 
         # Field for CPU
-        Label(self.propFrame, text="Amount CPU:").grid(row=3, sticky=E)
+        Label(self.propFrame, text="Amount CPU:").grid(row=4, sticky=E)
         self.cpuEntry = Entry(self.propFrame)
-        self.cpuEntry.grid(row=3, column=1)
+        self.cpuEntry.grid(row=4, column=1)
         if 'cpu' in self.prefValues:
             self.cpuEntry.insert(0, str(self.prefValues['cpu']))
         # Selection of Scheduler
@@ -507,26 +514,26 @@ class HostDialog(CustomDialog):
             sched = 'host'
         self.schedVar = StringVar(self.propFrame)
         self.schedOption = OptionMenu(self.propFrame, self.schedVar, "host", "cfs", "rt")
-        self.schedOption.grid(row=3, column=2, sticky=W)
+        self.schedOption.grid(row=4, column=2, sticky=W)
         self.schedVar.set(sched)
 
         # Selection of Cores
-        Label(self.propFrame, text="Cores:").grid(row=4, sticky=E)
+        Label(self.propFrame, text="Cores:").grid(row=5, sticky=E)
         self.coreEntry = Entry(self.propFrame)
-        self.coreEntry.grid(row=4, column=1)
+        self.coreEntry.grid(row=5, column=1)
         if 'cores' in self.prefValues:
             self.coreEntry.insert(1, self.prefValues['cores'])
 
         # Start command
-        Label(self.propFrame, text="Start Command:").grid(row=5, sticky=E)
+        Label(self.propFrame, text="Start Command:").grid(row=6, sticky=E)
         self.startEntry = Entry(self.propFrame)
-        self.startEntry.grid(row=5, column=1, sticky='nswe', columnspan=3)
+        self.startEntry.grid(row=6, column=1, sticky='nswe', columnspan=3)
         if 'startCommand' in self.prefValues:
             self.startEntry.insert(0, str(self.prefValues['startCommand']))
         # Stop command
-        Label(self.propFrame, text="Stop Command:").grid(row=6, sticky=E)
+        Label(self.propFrame, text="Stop Command:").grid(row=7, sticky=E)
         self.stopEntry = Entry(self.propFrame)
-        self.stopEntry.grid(row=6, column=1, sticky='nswe', columnspan=3)
+        self.stopEntry.grid(row=7, column=1, sticky='nswe', columnspan=3)
         if 'stopCommand' in self.prefValues:
             self.stopEntry.insert(0, str(self.prefValues['stopCommand']))
 
@@ -624,6 +631,7 @@ class HostDialog(CustomDialog):
                    'sched':self.schedVar.get(),
                    'hostname':self.hostnameEntry.get(),
                    'ip':self.ipEntry.get(),
+                   'mac':self.macEntry.get(),
                    'defaultRoute':self.routeEntry.get(),
                    'startCommand':self.startEntry.get(),
                    'stopCommand':self.stopEntry.get(),
@@ -631,6 +639,12 @@ class HostDialog(CustomDialog):
                    'externalInterfaces':externalInterfaces,
                    'vlanInterfaces':vlanInterfaces}
         self.result = results
+
+        if results['ip'] != '' and not re.match("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$", results['ip']):
+            showwarning(title="MiniEdit", message=f'Host MAC Address \"{results["ip"]}\" is not valid. Results may be different from expected.')
+
+        if results['mac'] != '' and not re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", results['mac']):
+            showwarning(title="MiniEdit", message=f'Host MAC Address \"{results["mac"]}\" is not valid. Results may be different from expected.')
 
 class P4SwitchDialog(CustomDialog):
 
@@ -687,13 +701,6 @@ class P4SwitchDialog(CustomDialog):
         
         self.result = results
         
-
-    def okAction(self):
-        if not os.path.isfile(self.jsonPathEntry.get()):
-            showerror(title='MiniEdit', message='Invalid JSON file, please try again.')
-            return
-        self.apply()
-        self.top.destroy()
 
 
 class SwitchDialog(CustomDialog):
@@ -887,33 +894,26 @@ class TableOptionsDialog(CustomDialog):
     def __init__(self, master, title, node):
         self.node = node
         # get tables and table metadata
-        self.tables = self.getTables(master)
-        # get just tables
-        self.tableValues = []
-        for t in self.tables:
-            self.tableValues.append(t["table"])
+        self.tableList = self.getTables()
+
+        # get list of tables' names
+        self.tables = []
+        for t in self.tableList:
+            self.tables.append(t["table"])
+
+        # populate list with entries that are currently in the tables
+        self.updateEntries()
+
         CustomDialog.__init__(self, master, title)
 
     def body(self, master):
  
         self.rootFrame = master
         self.entryFrame = Frame(self.rootFrame)
-        #self.entryFrame.grid(row=1, column=1)
-        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=5, padx=20, pady=(10, 20))
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=6, padx=20, pady=(10, 20))
 
-
-        """
-        self.testButton = Button(self.rootFrame, text="Load Rules onto Switch", command=self.test)
-        self.testButton.grid(row=0, column=1)
-        """
-
-        """
-        Label(self.ruleFrame, text="Rule:").grid(row=0, column=0, sticky=E)
-        self.addButton = Button( self.ruleFrame, text='Add', command=self.addRule)
-        self.addButton.grid(row=0, column=1)
-        """
         Label(self.rootFrame, text="Table:").grid(row=1, column=1, sticky='e', padx=10, pady=(10, 0))
-        self.combobox = Combobox(self.rootFrame, values=self.tableValues)
+        self.combobox = Combobox(self.rootFrame, values=self.tables)
         self.combobox.grid(row=1, column=2, sticky='we', pady=(10, 0), padx=(0, 10))
         self.getEntriesButton = Button(self.rootFrame, text="Select", command=self.getEntries)
         self.getEntriesButton.grid(row=1, column=3, sticky='w', pady=(10, 0))
@@ -921,8 +921,11 @@ class TableOptionsDialog(CustomDialog):
         self.addRowButton = Button(self.rootFrame, text="Add Rule", command=self.addEntry)
         self.addRowButton.grid(row=1, column=4, padx=10, pady=(10, 0))
 
+        self.saveButton = Button(self.rootFrame, text="Save Rules", command=self.save)
+        self.saveButton.grid(row=1, column=5, padx=10, pady=(10,0))
+
         self.addFromFileButton = Button(self.rootFrame, text="Import Rules from File", command=self.addEntriesFromFile)
-        self.addFromFileButton.grid(row=1, column=5, padx=(0, 10), pady=(10, 0))
+        self.addFromFileButton.grid(row=1, column=6, padx=(0, 10), pady=(10, 0))
 
         self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
         self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
@@ -936,7 +939,20 @@ class TableOptionsDialog(CustomDialog):
     def addEntry( self ):
         self.entryTableFrame.addRow(value=["", "", ""])
 
+    def save(self):
+        selectedTable = self.combobox.get()
+        if selectedTable == "":
+            return
+        
+        # clear rules off the switch, and replace them with rules from the table
+        self.clearTable(selectedTable)
+        self.addEntries()
+
     def getEntries(self):
+        # add rows to table interface
+
+        # populate list with entries that are currently in the tables
+        self.updateEntries()
 
         # get rid of previous rows
         self.entryTableFrame.clear()
@@ -944,30 +960,55 @@ class TableOptionsDialog(CustomDialog):
         #self.entryTableFrame = self.entryFrame.interior
         #self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
 
-
+        # get selected table
         selected_table = self.combobox.get()
         if selected_table == "":
             return
         else:
-            for table in self.tables:
-                if table["table"] == selected_table:
-                    for entry in table["entries"]:
-                        self.entryTableFrame.addRow(value=[entry["keys"], entry["action"], entry["action_data"]])
+            # add rows to table
+            for t in range(len(self.tableList)):
+                if self.tableList[t]["table"] == selected_table:
+                    for entry in self.tableList[t]["entries"]:
+                        # append all keys together
+                        keys = ""
+                        for key in entry["keys"]:
+                            keys = keys + (key + ", ")
+
+                        # append all action data together
+                        allActionData = ""
+                        for actionData in entry["action_data"]:
+                            allActionData = allActionData + (actionData + ", ")
+                        self.entryTableFrame.addRow(value=[keys[:-2], entry["action"], allActionData[:-2]])
                     break
             
-    def getTables(self, master):
+    def getTables(self):
+        # open process on node and enter simple_switch_CLI
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+        # get run show_tables command on process and get output
         out, _ = process.communicate(input=b"show_tables")
         process.kill()
+        # parse output and get list of tables and metadata
         tables = decode(out).split("\n")[3:-2]
         tables[0] = tables[0][12:]
-        tableSplit = []
+        tableList = []
         for i in range(len(tables)):
-            tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
+            #tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
+            tableList.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
+        return tableList
 
-        for t in range(len(tableSplit)):
+    def updateEntries(self):
+
+        # get entries currently present in each table
+
+        # get rid of old entries
+        for table in self.tableList:
+            table['entries'] = []
+     
+
+        # get new entries
+        for t in range(len(self.tableList)):
             process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-            #out, _ = process.communicate(input=bytes(f"table_dump {tableSplit[t]["table"]}", 'utf-8'))
+            out, _ = process.communicate(input=bytes(f"table_dump {self.tableList[t]['table']}", 'utf-8'))
             process.kill()
             lines = out.decode().split("\n")
             for i in range(len(lines)):
@@ -986,18 +1027,19 @@ class TableOptionsDialog(CustomDialog):
                         action_data = lines[i].split()[4]
                     except:
                         action_data = ""
-                    tableSplit[t]["entries"].append({"number": number, "keys": keys, "action": action, "action_data": action_data})
-        return tableSplit
-    
+                    self.tableList[t]["entries"].append({"number": number, "keys": keys, "action": action, "action_data": action_data})
+        
+        
     def okAction(self):
 
+        """
         selected_table = self.combobox.get()
         if selected_table != "":
-            print("table:", selected_table)
             # clear old entries
             self.clearTable(selected_table)
             # add new entries
             self.addEntries(selected_table)
+        """
 
         self.apply()
         self.top.destroy()
@@ -1006,21 +1048,40 @@ class TableOptionsDialog(CustomDialog):
         # clear the entries of a table
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
         out, _ = process.communicate(input=bytes(f"table_clear {table}", "utf-8"))
-        print(out.decode())
+        #print(out.decode())
         process.kill()
 
-    def addEntries(self, table):
-        # add new entries to a table
+    def addEntries(self):
+
+        # add all rules currently in the table to the switch
         if len(self.entryTableFrame._widgets) > 1:
             for row in self.entryTableFrame._widgets[1:]:
+                action = row[1].get()
+                key = ""
+                for i in row[0].get().split(","):
+                    key = key + (i.split()[3] + " ")
+                key = key[:-1]
+                
+                actionData = ""
+                for i in row[2].get().split(", "):
+                    actionData = actionData + (i + " ")
+                actionData = actionData[:-1]
+
+                print(action)
+                print(key)
+                print(actionData)
+                print()
+                
+                """
                 process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-                print("trying to add:", f"table_add {table} {row[1].get()} {int(row[0].get().split()[3])} => {int(row[2].get())}")
+                print("trying to add:", f"table_add {table} {action} {int(row[0].get().split()[3])} => {int(row[2].get())}")
                 out, _ = process.communicate(input=bytes(f"table_add {table} {row[1].get()} {int(row[0].get().split()[3])} => {int(row[2].get())}", "utf-8"))
                 print(out.decode())
                 process.kill()
                 for entry in row:
                     print(entry.get(), end=", ")
                 print()
+                """
 
     def addEntriesFromFile(self):
         # add new entries to a table from a file
@@ -2848,6 +2909,8 @@ class MiniEdit( Frame ):
                 newHostOpts['defaultRoute'] = hostBox.result['defaultRoute']
             if len(hostBox.result['ip']) > 0:
                 newHostOpts['ip'] = hostBox.result['ip']
+            if len(hostBox.result['mac']) > 0:
+                newHostOpts['mac'] = hostBox.result['mac']
             if len(hostBox.result['externalInterfaces']) > 0:
                 newHostOpts['externalInterfaces'] = hostBox.result['externalInterfaces']
             if len(hostBox.result['vlanInterfaces']) > 0:
@@ -2945,7 +3008,9 @@ class MiniEdit( Frame ):
         term = makeTerm( self.net.nameToNode[ name ], 'Host', term=self.appPrefs['terminalType'] )
         """
 
-        tableOptionsBox = TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
+        #tableOptionsBox = TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
+        TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
+
         
 
     def linkUp( self ):
@@ -3194,7 +3259,7 @@ class MiniEdit( Frame ):
             elif 'LegacySwitch' in tags:
                 newSwitch = net.addSwitch( name , cls=LegacySwitch)
             elif 'P4Switch' in tags:
-                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch_grpc', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
+                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
             elif 'HardwareSwitch' in tags:
                 pass
             elif 'LegacyRouter' in tags:
