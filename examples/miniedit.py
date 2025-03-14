@@ -3194,7 +3194,7 @@ class MiniEdit( Frame ):
             elif 'LegacySwitch' in tags:
                 newSwitch = net.addSwitch( name , cls=LegacySwitch)
             elif 'P4Switch' in tags:
-                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
+                newSwitch = net.addSwitch( name , cls=P4Switch, sw_path='simple_switch_grpc', json_path=self.switchOpts[name]['jsonPath'], thrift_port=9090)
             elif 'HardwareSwitch' in tags:
                 pass
             elif 'LegacyRouter' in tags:
