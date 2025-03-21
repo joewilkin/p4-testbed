@@ -17,6 +17,7 @@ import json
 import os
 import re
 import sys
+import socket
 
 from functools import partial
 from optparse import OptionParser  # pylint: disable=deprecated-module
@@ -54,12 +55,12 @@ else:
     from tkinter import ( Frame, Label, LabelFrame, Entry, OptionMenu,
                           Checkbutton, Menu, Toplevel, Button, BitmapImage,
                           PhotoImage, Canvas, Scrollbar, Wm, TclError,
-                          StringVar, IntVar, E, W, EW, NW, Y, VERTICAL, SOLID,
+                          StringVar, IntVar, Radiobutton, E, W, EW, NW, Y, VERTICAL, SOLID,
                           CENTER, RIGHT, LEFT, BOTH, TRUE, FALSE )
     from tkinter.ttk import Notebook
     from tkinter.ttk import Combobox
     from tkinter.ttk import Progressbar
-    from tkinter.messagebox import (showerror, showwarning)
+    from tkinter.messagebox import (showerror, showwarning, showinfo)
     from tkinter import font as tkFont
     from tkinter import simpledialog as tkSimpleDialog
     from tkinter import filedialog as tkFileDialog
@@ -693,6 +694,7 @@ class P4SwitchDialog(CustomDialog):
             return
         
         print("Selected file", str(self.f.name))
+        self.jsonPathEntry.delete(0, 'end')
         self.jsonPathEntry.insert(0, str(self.f.name))
 
     def apply(self):             
@@ -890,6 +892,120 @@ class SwitchDialog(CustomDialog):
             results['switchType'] = 'default'
         self.result = results
 
+class InterfaceSelector(CustomDialog):
+
+    def __init__(self, master, title, hostName, externalInterfaces, externalInterfaceBindings):
+        self.hostName = hostName
+        self.externalInterfaces = externalInterfaces
+        self.externalInterfaceBindings = externalInterfaceBindings
+
+        self.choices = {}
+        for i in range(len(self.externalInterfaces)):
+            if self.externalInterfaces[i] not in self.externalInterfaceBindings:
+                self.choices.update({self.externalInterfaces[i]: i + 1})
+        self.result = None
+        CustomDialog.__init__(self, master, title)
+
+    def body(self, master):
+        w = Label(master, text=f"Please select which external\ninterface to bind {self.hostName} to:", font="50")
+        w.pack(pady=15, padx=15)
+
+        self.v = StringVar(master, "1")
+
+        for (text, value) in self.choices.items():
+            Radiobutton(master, text=text, variable=self.v,
+                        value=value).pack(ipady=5)        
+
+    def okAction(self):
+        for key, val in self.choices.items():
+            if str(val) == str(self.v.get()):
+                self.result = key
+        self.apply()
+        self.top.destroy()
+
+class HardwareTableOptionsDialog(CustomDialog):
+    def __init__(self, master, title):
+        self.tables = self.getTables()
+        CustomDialog.__init__(self, master, title)
+
+    def body(self, master):
+        self.rootFrame = master
+        self.entryFrame = Frame(self.rootFrame)
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=6, padx=20, pady=(10, 20))
+
+        Label(self.rootFrame, text="Table:").grid(row=1, column=1, sticky='e', padx=10, pady=(10, 0))
+        self.combobox = Combobox(self.rootFrame, values=self.tables)
+        self.combobox.grid(row=1, column=2, sticky='we', pady=(10, 0), padx=(0, 10))
+        self.getEntriesButton = Button(self.rootFrame, text="Select", command=self.getEntries)
+        self.getEntriesButton.grid(row=1, column=3, sticky='w', pady=(10, 0))
+
+        self.entryFrame = VerticalScrolledTable(self.entryFrame, rows=0, columns=3, title='Entries')
+        self.entryFrame.grid(row=3, column=1, sticky='nswe', columnspan=4)
+        self.entryTableFrame = self.entryFrame.interior
+        self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
+    
+    def getTables(self):
+        # create TCP socket and connect to server
+        s = socket.socket()
+        port = 12345
+        s.connect(('10.5.52.9', port))
+
+        # send "get tables" to server to request tables from server
+        req = "get tables"
+        s.send(req.encode())
+
+        # get response from server
+        reply = s.recv(1024).decode()
+        tables_dict = json.loads(reply)
+        s.close()
+        return tables_dict['tables']
+
+    def getEntries(self):
+
+        # get selected table
+        selected_table = self.combobox.get()
+        if selected_table == "":
+            return
+        
+        # get rid of previous rows
+        self.entryTableFrame.clear()
+        self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
+
+        # create TCP socket and connect to server
+        s = socket.socket()
+        port = 12345
+        s.connect(('10.5.52.9', port))
+
+        # send selected table to server to request its entries from server
+        s.send(selected_table.encode())
+
+        # get response from server
+        reply = s.recv(1024).decode()
+        entries_dict = json.loads(reply)
+        s.close()
+        
+        for entry in entries_dict["entries"]:
+            #data = entry[0]
+            #key = entry[1]
+            print("data:", entry[0])
+            print("key:", entry[1])
+            all_keys = ""
+            for key in list(entry[1].keys()):
+                all_keys = all_keys + (key + " : " + str(hex(entry[1][key]["value"])) + ", ")
+            all_keys = all_keys[:-2]
+
+            all_data = ""
+            data_keys = []
+            for key in list(entry[0].keys()):
+                if key != 'action_name' and key != 'is_default_entry':
+                    data_keys.append(key)
+
+            for key in data_keys:
+                 all_data = all_data + (key + " : " + str(entry[0][key]) + ", ")
+            all_data = all_data[:-2]
+
+            self.entryTableFrame.addRow(value=[all_keys, entry[0]['action_name'], all_data], readonly=True)
+
 class TableOptionsDialog(CustomDialog):
     def __init__(self, master, title, node):
         self.node = node
@@ -940,13 +1056,15 @@ class TableOptionsDialog(CustomDialog):
         self.entryTableFrame.addRow(value=["", "", ""])
 
     def save(self):
+        # remove the rules from the currently selected table, and then add the rules in the table to the switch
+
         selectedTable = self.combobox.get()
         if selectedTable == "":
             return
         
         # clear rules off the switch, and replace them with rules from the table
         self.clearTable(selectedTable)
-        self.addEntries()
+        self.addEntries(selectedTable)
 
     def getEntries(self):
         # add rows to table interface
@@ -973,11 +1091,11 @@ class TableOptionsDialog(CustomDialog):
                         keys = ""
                         for key in entry["keys"]:
                             keys = keys + (key + ", ")
-
                         # append all action data together
                         allActionData = ""
                         for actionData in entry["action_data"]:
                             allActionData = allActionData + (actionData + ", ")
+                        # add row to table
                         self.entryTableFrame.addRow(value=[keys[:-2], entry["action"], allActionData[:-2]])
                     break
             
@@ -1004,7 +1122,6 @@ class TableOptionsDialog(CustomDialog):
         for table in self.tableList:
             table['entries'] = []
      
-
         # get new entries
         for t in range(len(self.tableList)):
             process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
@@ -1023,10 +1140,18 @@ class TableOptionsDialog(CustomDialog):
                             keys.append(lines[i].split()[1][:-1] + " : " + lines[i].split()[2] + " " + lines[i].split()[3])
                         i += 1
                     action = lines[i].split()[2]
+                    action_data = []
                     try:
-                        action_data = lines[i].split()[4]
+                        if len(lines[i].split()) == 5:
+                            action_data.append(lines[i].split()[4])
+                        elif len(lines[i].split()) > 5:
+                            j = 4
+                            while j < len(lines[i].split()) - 1:
+                                action_data.append(lines[i].split()[j][:-1])
+                                j += 1
+                            action_data.append(lines[i].split()[j])
                     except:
-                        action_data = ""
+                        pass
                     self.tableList[t]["entries"].append({"number": number, "keys": keys, "action": action, "action_data": action_data})
         
         
@@ -1051,37 +1176,44 @@ class TableOptionsDialog(CustomDialog):
         #print(out.decode())
         process.kill()
 
-    def addEntries(self):
+    def addEntries(self, table):
+
+        # if there are no rules in table, return
+        if len(self.entryTableFrame._widgets) <= 1:
+            return
+
+        errors = False
 
         # add all rules currently in the table to the switch
-        if len(self.entryTableFrame._widgets) > 1:
-            for row in self.entryTableFrame._widgets[1:]:
+        for row in self.entryTableFrame._widgets[1:]:
+            if (not row[0].get().isspace() and not row[1].get().isspace() and not row[2].get().isspace()) and (not row[0].get() == "" and not row[1].get() == "" and not row[2].get() == ""):
                 action = row[1].get()
                 key = ""
-                for i in row[0].get().split(","):
-                    key = key + (i.split()[3] + " ")
+                for i in row[0].get().split(", "):
+                    key = key + ("0x" + i.split()[3] + " ")
                 key = key[:-1]
                 
                 actionData = ""
                 for i in row[2].get().split(", "):
-                    actionData = actionData + (i + " ")
+                    actionData = actionData + ("0x" + i + " ")
                 actionData = actionData[:-1]
 
-                print(action)
-                print(key)
-                print(actionData)
-                print()
-                
-                """
+                # start process and enter simple_switch_CLI
                 process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-                print("trying to add:", f"table_add {table} {action} {int(row[0].get().split()[3])} => {int(row[2].get())}")
-                out, _ = process.communicate(input=bytes(f"table_add {table} {row[1].get()} {int(row[0].get().split()[3])} => {int(row[2].get())}", "utf-8"))
+                print("running command:", f"table_add {table} {action} {key} => {actionData}")
+                out, _ = process.communicate(input=bytes(f"table_add {table} {action} {key} => {actionData}", "utf-8"))
                 print(out.decode())
+                if 'Entry has been added' not in out.decode():
+                    errors = True
                 process.kill()
-                for entry in row:
-                    print(entry.get(), end=", ")
-                print()
-                """
+
+        if not errors:
+            showinfo(title="MiniEdit", message=f'Rules have successfully been saved to switch.')
+            self.updateEntries()
+        else:
+            showwarning(title="MiniEdit", message=f'Errors may have occured when saving rules to switch. Please see the command line output for more information.')
+
+            
 
     def addEntriesFromFile(self):
         # add new entries to a table from a file
@@ -1093,7 +1225,29 @@ class TableOptionsDialog(CustomDialog):
             return
 
         print("Selected file", str(self.f.name))
+
+        errors = False
         
+        # open file in read only mode
+        f = open(self.f.name, 'r')
+        for line in f:
+            if not line.isspace():
+                process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
+                out, _ = process.communicate(input=bytes(line, "utf-8"))
+                print(out.decode())
+                if 'Entry has been added' not in out.decode():
+                    errors = True
+                process.kill()
+        # close file    
+        f.close()
+        
+        if not errors:
+            showinfo(title="MiniEdit", message=f'Rules have successfully been added to switch.')
+        else:
+            showwarning(title="MiniEdit", message=f'Errors may have occured when adding rules to switch. Please see the command line output for more information.')
+
+
+                
 
 class VerticalScrolledTable(LabelFrame):
     """A pure Tkinter scrollable frame that actually works!
@@ -1475,8 +1629,11 @@ class MiniEdit( Frame ):
         self.itemToWidget = {}
 
         # Initialize external interfaces
-        self.externalInterfaces = ['enp9s0', 'enp10s0']
-
+        self.externalInterfaces = os.listdir('/sys/class/net/')
+        for intf in self.externalInterfaces:
+            if not re.match('^enp.*', intf):
+                self.externalInterfaces.remove(intf)
+        
         # Initialize external interface bindings
         self.externalInterfaceBindings = {}
 
@@ -1533,6 +1690,9 @@ class MiniEdit( Frame ):
         self.p4SwitchRunPopup.add_command(label='Table Options', font=self.font, command=self.p4SwitchOptions )
         self.p4SwitchRunPopup.add_separator()
         self.p4SwitchRunPopup.add_command(label='Terminal', font=self.font, command=self.xterm )
+
+        self.hardwareSwitchRunPopup = Menu(self.top, tearoff=0)
+        self.hardwareSwitchRunPopup.add_command(label='TableOptions', font=self.font, command=self.hardwareSwitchOptions)
 
         self.linkPopup = Menu(self.top, tearoff=0)
         self.linkPopup.add_command(label='Link Options', font=self.font)
@@ -2548,6 +2708,8 @@ class MiniEdit( Frame ):
             icon.bind('<Button-3>', self.do_controllerPopup )
         if node == 'P4Switch':
             icon.bind('<Button-3>', self.do_p4SwitchPopup )
+        if node == 'HardwareSwitch':
+            icon.bind('<Button-3>', self.do_hardwareSwitchPopup)
 
 
     def clickController( self, event ):
@@ -2781,13 +2943,16 @@ class MiniEdit( Frame ):
                 else:
                     hostName = dest['text']
 
-                # get available external interface
-                for intf in self.externalInterfaces:
-                    if intf not in self.externalInterfaceBindings:
-                        self.externalInterfaceBindings[intf] = hostName
-                        self.hostOpts[hostName]['externalInterfaces'] = [intf]
-                        print(f"Connected {hostName} interface {intf} to hardware switch.")
-                        break
+                iselector = InterfaceSelector(self, title="Interface Selector", hostName=hostName, 
+                                              externalInterfaces=self.externalInterfaces, 
+                                              externalInterfaceBindings=self.externalInterfaceBindings)
+                self.master.wait_window(iselector.top)
+                if iselector.result:
+                    self.externalInterfaceBindings[iselector.result] = hostName
+                    self.hostOpts[hostName]['externalInterfaces'] = [iselector.result]
+
+                    showinfo(title="MiniEdit", message=f"Connected {hostName} interface {iselector.result} to hardware switch.")
+                    print(f"Bound {hostName} to {iselector.result}")
 
 
                 self.hwConnectionsCounter += 1
@@ -3011,7 +3176,14 @@ class MiniEdit( Frame ):
         #tableOptionsBox = TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
         TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
 
+    def hardwareSwitchOptions(self, _ignore=None):
+        if (self.selection is None or
+            self.net is None or
+            self.selection not in self.itemToWidget):
+            return
         
+        HardwareTableOptionsDialog(self, title="P4 Switch Options")
+
 
     def linkUp( self ):
         if ( self.selection is None or
@@ -3416,10 +3588,10 @@ class MiniEdit( Frame ):
         self.buildNodes(net)
         self.buildLinks(net)
 
-        links = self.getLinks()
-        self.substitutible = self.find_substitutible(links)
-        print('The substitutible switches are', self.substitutible)
-        self.linked_switches = self.create_virtual_interfaces(self.substitutible, links)
+        #links = self.getLinks()
+        #self.substitutible = self.find_substitutible(links)
+        #print('The substitutible switches are', self.substitutible)
+        #self.linked_switches = self.create_virtual_interfaces(self.substitutible, links)
 
         # Build network (we have to do this separately at the moment )
         net.build()
@@ -3530,6 +3702,7 @@ class MiniEdit( Frame ):
                 links.append([srcName, dstName])
         return links
 
+    """
     def find_substitutible(self, links):
         print("Finding Substitutible Switches.")
 
@@ -3579,18 +3752,13 @@ class MiniEdit( Frame ):
             os.system("sudo ip link set %s up" % bridge)
 
         return linked_switches
+    """
 
     def start( self ):
         "Start network."
 
         if self.net is None:
             self.net = self.build()
-
-            # attach nodes to virtual interfaces
-            for sw in self.linked_switches:
-                attach_to = 'br-%s-hw' % sw
-                print('Attaching node', sw, 'to', attach_to)
-                Intf(name=attach_to, node=self.net.get(sw))
 
             # Since I am going to inject per switch controllers.
             # I can't call net.start().  I have to replicate what it
@@ -3736,6 +3904,16 @@ class MiniEdit( Frame ):
                 self.p4SwitchRunPopup.tk_popup(event.x_root, event.y_root, 0)
             finally:
                 self.p4SwitchRunPopup.grab_release()
+
+    def do_hardwareSwitchPopup(self, event):
+        # display the popup menu
+        if not self.net is None:
+        # Mininet is running
+            try:
+                self.hardwareSwitchRunPopup.tk_popup(event.x_root, event.y_root, 0)
+            finally:
+                self.hardwareSwitchRunPopup.grab_release()
+        
 
     def xterm( self, _ignore=None ):
         "Make an xterm when a button is pressed."
