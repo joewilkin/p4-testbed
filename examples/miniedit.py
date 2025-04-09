@@ -9,6 +9,9 @@ GUI application using Mininet as the network model.
 Bob Lantz, April 2010
 Gregory Gee, July 2013
 
+Modified by Joseph Wilkin, April 2025
+This is a modified version of MiniEdit built specifically for P4 and BMv2.
+
 Controller icon from http://semlabs.co.uk/
 OpenFlow icon from https://www.opennetworking.org/
 """
@@ -648,9 +651,10 @@ class HostDialog(CustomDialog):
             showwarning(title="MiniEdit", message=f'Host MAC Address \"{results["mac"]}\" is not valid. Results may be different from expected.')
 
 class P4SwitchDialog(CustomDialog):
+    """ Written by Joseph Wilkin """
+    """ Dialog screen for the BMv4 P4 Software Switch """
 
     def __init__(self, master, title, prefDefaults):
-
         self.prefValues = prefDefaults
         self.result = None
         CustomDialog.__init__(self, master, title)
@@ -675,8 +679,6 @@ class P4SwitchDialog(CustomDialog):
 
         ### ROW 2
         # Field for JSON Path
-        
-        
         Label(self.propFrame, text="Compiled P4 Program:").grid(row=1, sticky=E, padx=(10, 0))
         self.jsonPathEntry = Entry(self.propFrame)
         self.jsonPathEntry.grid(row=1, column=1)
@@ -685,6 +687,8 @@ class P4SwitchDialog(CustomDialog):
             self.jsonPathEntry.insert(0, self.prefValues['jsonPath'])
 
     def getJson(self):
+        """ Get compiled P4 program from local machine """
+
         myFormats = [
             ('Compiled P4 Program (JSON)','*.json'),
             ('All Files','*'),
@@ -893,6 +897,9 @@ class SwitchDialog(CustomDialog):
         self.result = results
 
 class InterfaceSelector(CustomDialog):
+    """ Written by Joseph Wilkin """
+    """ Window to select which external interfaces to bind the host """
+    """ opened whenever a host is connected to a hardware switch """
 
     def __init__(self, master, title, hostName, externalInterfaces, externalInterfaceBindings):
         self.hostName = hostName
@@ -924,6 +931,9 @@ class InterfaceSelector(CustomDialog):
         self.top.destroy()
 
 class HardwareTableOptionsDialog(CustomDialog):
+    """ Written by Joseph Wilkin """
+    """ Match-Action Table Interface for the Hardware Switch """
+
     def __init__(self, master, title):
         self.tables = self.getTables()
         CustomDialog.__init__(self, master, title)
@@ -945,7 +955,7 @@ class HardwareTableOptionsDialog(CustomDialog):
         self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
     
     def getTables(self):
-        # create TCP socket and connect to server
+        # create TCP socket and connect to server program running on hardware switch
         s = socket.socket()
         port = 12345
         s.connect(('10.5.52.9', port))
@@ -971,7 +981,7 @@ class HardwareTableOptionsDialog(CustomDialog):
         self.entryTableFrame.clear()
         self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
 
-        # create TCP socket and connect to server
+        # create TCP socket and connect to server program running on hardware switch
         s = socket.socket()
         port = 12345
         s.connect(('10.5.52.9', port))
@@ -1007,6 +1017,10 @@ class HardwareTableOptionsDialog(CustomDialog):
             self.entryTableFrame.addRow(value=[all_keys, entry[0]['action_name'], all_data], readonly=True)
 
 class TableOptionsDialog(CustomDialog):
+
+    """ Written by Joseph Wilkin """
+    """ BMv2 Software Switch Match-Action Table Interface """
+
     def __init__(self, master, title, node):
         self.node = node
         # get tables and table metadata
@@ -1075,9 +1089,7 @@ class TableOptionsDialog(CustomDialog):
         # get rid of previous rows
         self.entryTableFrame.clear()
         self.entryTableFrame.addRow(value=['Key', 'Action', 'Action Data'], readonly=True)
-        #self.entryTableFrame = self.entryFrame.interior
-        #self.entryTableFrame.addRow(value=['Entry Number', 'Key', 'Action', 'Action Data'], readonly=True)
-
+    
         # get selected table
         selected_table = self.combobox.get()
         if selected_table == "":
@@ -1110,7 +1122,6 @@ class TableOptionsDialog(CustomDialog):
         tables[0] = tables[0][12:]
         tableList = []
         for i in range(len(tables)):
-            #tableSplit.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
             tableList.append({"table": tables[i].split()[0], "metadata": " ".join(tables[i].split()[1:]), "entries": []})
         return tableList
 
@@ -1156,24 +1167,13 @@ class TableOptionsDialog(CustomDialog):
         
         
     def okAction(self):
-
-        """
-        selected_table = self.combobox.get()
-        if selected_table != "":
-            # clear old entries
-            self.clearTable(selected_table)
-            # add new entries
-            self.addEntries(selected_table)
-        """
-
         self.apply()
         self.top.destroy()
 
     def clearTable(self, table):
         # clear the entries of a table
         process = self.node.popen("simple_switch_CLI", stdin=-1, stdout=-1, stderr=-1)
-        out, _ = process.communicate(input=bytes(f"table_clear {table}", "utf-8"))
-        #print(out.decode())
+        _, _ = process.communicate(input=bytes(f"table_clear {table}", "utf-8"))
         process.kill()
 
     def addEntries(self, table):
@@ -1629,6 +1629,7 @@ class MiniEdit( Frame ):
         self.itemToWidget = {}
 
         # Initialize external interfaces
+        # get list of external interfaces that begin with "enp" from command line
         self.externalInterfaces = os.listdir('/sys/class/net/')
         for intf in self.externalInterfaces:
             if not re.match('^enp.*', intf):
@@ -1692,7 +1693,7 @@ class MiniEdit( Frame ):
         self.p4SwitchRunPopup.add_command(label='Terminal', font=self.font, command=self.xterm )
 
         self.hardwareSwitchRunPopup = Menu(self.top, tearoff=0)
-        self.hardwareSwitchRunPopup.add_command(label='TableOptions', font=self.font, command=self.hardwareSwitchOptions)
+        self.hardwareSwitchRunPopup.add_command(label='Table Options', font=self.font, command=self.hardwareSwitchOptions)
 
         self.linkPopup = Menu(self.top, tearoff=0)
         self.linkPopup.add_command(label='Link Options', font=self.font)
@@ -2048,6 +2049,10 @@ class MiniEdit( Frame ):
                 self.addNode('P4Switch', nodeNum, float(x), float(y), name=hostname)
                 icon = self.findWidgetByName(hostname)
                 icon.bind('<Button-3>', self.do_p4SwitchPopup )
+            elif switch['opts']['switchType'] == 'hardwareSwitch':
+                self.addNode('HardwareSwitch', nodeNum, float(x), float(y), name=hostname)
+                icon = self.findWidgetByName(hostname)
+                icon.bind('<Button-3>', self.do_hardwareSwitchPopup)
             else:
                 self.addNode('Switch', nodeNum, float(x), float(y), name=hostname)
                 icon = self.findWidgetByName(hostname)
@@ -2148,7 +2153,7 @@ class MiniEdit( Frame ):
                 name = widget[ 'text' ]
                 tags = self.canvas.gettags( item )
                 x1, y1 = self.canvas.coords( item )
-                if 'Switch' in tags or 'LegacySwitch' in tags or 'LegacyRouter' in tags or 'P4Switch'in tags:
+                if 'Switch' in tags or 'LegacySwitch' in tags or 'LegacyRouter' in tags or 'P4Switch' in tags or 'HardwareSwitch' in tags:
                     nodeNum = self.switchOpts[name]['nodeNum']
                     nodeToSave = {'number':str(nodeNum),
                                   'x':str(x1),
@@ -3165,15 +3170,7 @@ class MiniEdit( Frame ):
         tags = self.canvas.gettags( self.selection )
         if 'P4Switch' not in tags:
             return
-        
-        """
-        name = self.itemToWidget[ self.selection ][ 'text' ]
-        if name not in self.net.nameToNode:
-            return
-        term = makeTerm( self.net.nameToNode[ name ], 'Host', term=self.appPrefs['terminalType'] )
-        """
 
-        #tableOptionsBox = TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
         TableOptionsDialog(self, title="P4 Switch Options", node=self.net.nameToNode[ name ])
 
     def hardwareSwitchOptions(self, _ignore=None):
@@ -3216,8 +3213,6 @@ class MiniEdit( Frame ):
         link = self.selection
 
         linkDetail =  self.links[link]
-        # src = linkDetail['src']
-        # dest = linkDetail['dest']
         linkopts = linkDetail['linkOpts']
         linkBox = LinkDialog(self, title='Link Details', linkDefaults=linkopts)
         if linkBox.result is not None:
@@ -3588,11 +3583,6 @@ class MiniEdit( Frame ):
         self.buildNodes(net)
         self.buildLinks(net)
 
-        #links = self.getLinks()
-        #self.substitutible = self.find_substitutible(links)
-        #print('The substitutible switches are', self.substitutible)
-        #self.linked_switches = self.create_virtual_interfaces(self.substitutible, links)
-
         # Build network (we have to do this separately at the moment )
         net.build()
 
@@ -3701,58 +3691,6 @@ class MiniEdit( Frame ):
                 srcName, dstName = src[ 'text' ], dst[ 'text' ]
                 links.append([srcName, dstName])
         return links
-
-    """
-    def find_substitutible(self, links):
-        print("Finding Substitutible Switches.")
-
-        host_neigbors = []
-        potential_switches = []
-
-        # find substitutible switches
-        # (switches only connected to other switches)
-        for l in links:
-            link = {'node1': l[0],
-                    'node2': l[1]}
-            print(link)
-            if link['node1'][0] == 'h':
-                if link['node2'][0] == 'p':
-                    if link['node2'] not in host_neigbors:
-                        host_neigbors.append(link['node2'])
-            elif link['node2'][0] == 'h':
-                if link['node1'][0] == 'p':
-                    if link['node1'] not in host_neigbors:
-                        host_neigbors.append(link['node1'])
-            else:
-                if link['node1'] not in potential_switches:
-                        potential_switches.append(link['node1'])
-                if link['node2'] not in potential_switches:
-                        potential_switches.append(link['node2'])
-        substitutible_switches = []
-        for switch in potential_switches:
-            if switch not in host_neigbors:
-                substitutible_switches.append(switch)
-        return substitutible_switches
-
-    def create_virtual_interfaces(self, substitiuble, links):
-        # find all switches linked to substitutible switches
-        linked_switches = []
-        for l in links:
-            link = {'node1': l[0],
-                    'node2': l[1]}
-            if link['node1'] in substitiuble:
-                linked_switches.append(link['node2'])
-            if link['node2'] in substitiuble:
-                linked_switches.append(link['node1'])
-
-        # create virtual interfaces for each adjacent switch
-        for switch in linked_switches:
-            bridge = 'br-%s-hw' % switch
-            os.system("sudo ip link add %s type bridge" % bridge)
-            os.system("sudo ip link set %s up" % bridge)
-
-        return linked_switches
-    """
 
     def start( self ):
         "Start network."
@@ -4352,7 +4290,69 @@ gGPLHwLwcMIo12Qxu0ABAQA7
             K5CYII=
         """),
 
-        'HardwareSwitch': PhotoImage(data=r"""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"""),
+        'HardwareSwitch': PhotoImage(data=r"""iVBORw0KGgoAAAANSU
+            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
+            SuQmCC"""),
 
 
         'OldSwitch': PhotoImage( data=r"""
