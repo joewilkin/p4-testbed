@@ -1,2 +1,0 @@
-table_add MyIngress.forwarding MyIngress.forward 1 => 2
-table_add MyIngress.forwarding MyIngress.forward 2 => 1

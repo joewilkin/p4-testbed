@@ -78,6 +78,8 @@ def getEntries(table):
     dev_tgt = gc.Target(0)
     ipv4_host_entries = ipv4_host_table.entry_get(dev_tgt, [])
     for (data, key) in ipv4_host_entries:
+        #print("data:", data.to_dict())
+        #print("key:", key.to_dict())
         entries.append([data.to_dict(), key.to_dict()])
 
     entries_dict = {"table": table}
