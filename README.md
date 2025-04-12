@@ -1,6 +1,6 @@
 P4 Testbed
 ========================================================
-*An Undergraduate Honors Thesis Project by Joseph Wilkin*
+*An Undergraduate Honors Thesis Project by Joseph Wilkin.*
 
 This project combines MiniEdit, the Mininet GUI, with BMv2 software switches and an Aurora 610 programmable hardware switch to create one of the first platforms built specifically for programming in P4 and running P4-based experiments.
 
@@ -12,150 +12,39 @@ This program contains a BMv2 match-action table interface which allows users to 
 
 This program can be ran on a physical Linux machine or a virtual environment and can be used to emulate Mininet topologies using the BMv2 software P4 switch, so long as the following dependancies have been installed:
 
-* Mininet
-* p4c
-* grpc
-* nanomsg
-* pypi
-* bmv2
-* protobuf
-* thrift
+* [Mininet](https://github.com/mininet/mininet)
+* [p4c](https://github.com/p4lang/p4c)
+* [grpc](https://github.com/grpc/grpc)
+* [nanomsg](https://github.com/nanomsg/nanomsg)
+* [bmv2](https://github.com/p4lang/behavioral-model)
+* [protobuf](https://github.com/protocolbuffers/protobuf)
+* [thrift](https://github.com/apache/thrift)
 
 ### Hardware Emulation
 
-To use the hardware switch-specific features, the program and dependancies in the above section must be installed on a physical Linux machine connected to a Aurora 610 hardware switch configured with the Tofino 1 architecture. 
-  
+To use the hardware switch-specific features, the program and dependancies in the above section must be installed on a physical Linux machine connected to a Aurora 610 hardware switch configured with the Tofino 1 architecture. The switch should be started with a compiled P4 program and the server.py script should be running on the switch using:
 
-### What is Mininet?
+`python3 server.py`
 
-Mininet emulates a complete network of hosts, links, and switches
-on a single machine.  To create a sample two-host, one-switch network,
-just run:
+## Usage Steps
 
-  `sudo mn`
+Once the dependancies have been installed, the program can be run using:
 
-Mininet is useful for interactive development, testing, and demos,
-especially those using OpenFlow and SDN.  OpenFlow-based network
-controllers prototyped in Mininet can usually be transferred to
-hardware with minimal changes for full line-rate execution.
+`python3 miniedit.py`
 
-### How does it work?
+This will launch an empty MiniEdit window in which a topology can be built. Notice that two new icons representing the BMv2 software switch and the hardware switch have been included and can be used in constructing network topologies. Pressing the "Run" button will start the underlying Mininet virtual network, which will work as normal.
 
-Mininet creates virtual networks using process-based virtualization
-and network namespaces - features that are available in recent Linux
-kernels.  In Mininet, hosts are emulated as `bash` processes running in
-a network namespace, so any code that would normally run on a Linux
-server (like a web server or client program) should run just fine
-within a Mininet "Host".  The Mininet "Host" will have its own private
-network interface and can only see its own processes.  Switches in
-Mininet are software-based switches like Open vSwitch or the OpenFlow
-reference switch.  Links are virtual ethernet pairs, which live in the
-Linux kernel and connect our emulated switches to emulated hosts
-(processes).
+Please note that the hardware switch must be manually started and configured in order to work with this program. Additonally, the "server.py" script must be ran on the hardware switch. This can be done using:
 
-### Features
+`python3 server.py`
 
-Mininet includes:
+## Features
 
-* A command-line launcher (`mn`) to instantiate networks.
+On top of the features offered by standard Mininet and MiniEdit, this P4 testbed includes:
 
-* A handy Python API for creating networks of varying sizes and
-  topologies.
+* Built-in support for the BMv2 software switch, allowing users to effortlessly construct topologies using P4 switches.
+* A match-action table interface which allows users to view and modify the table entries located on the data plane of a P4 switch without using the command line.
+* An icon representing the Aurora 610 hardware switch which allows users to effortlessly integrate this swtich into their Mininet topologies.
+* A simple interface which allows users to view the tables and table entries present on the hardware switch.
 
-* Examples (in the `examples/` directory) to help you get started.
 
-* Full API documentation via Python `help()` docstrings, as well as
-  the ability to generate PDF/HTML documentation with `make doc`.
-
-* Parametrized topologies (`Topo` subclasses) using the Mininet
-  object.  For example, a tree network may be created with the
-  command:
-
-  `mn --topo tree,depth=2,fanout=3`
-
-* A command-line interface (`CLI` class) which provides useful
-  diagnostic commands (like `iperf` and `ping`), as well as the
-  ability to run a command to a node. For example,
-
-  `mininet> h11 ifconfig -a`
-
-  tells host h11 to run the command `ifconfig -a`
-
-* A "cleanup" command to get rid of junk (interfaces, processes, files
-  in /tmp, etc.) which might be left around by Mininet or Linux. Try
-  this if things stop working!
-
-  `mn -c`
-
-### Python 3 Support
-
-- Mininet 2.3.1b4 supports Python 3 and Python 2
-
-- You can install both the Python 3 and Python 2 versions of
-Mininet side by side, but the most recent installation will
-determine which Python version is used by default by `mn`.
-
-- You can run `mn` directly with Python 2 or Python 3,
-  as long as the appropriate version of Mininet is installed,
-  e.g.
-
-      $ sudo python2 `which mn`
-
-- More information regarding Python 3 and Python 2 support
-  may be found in the release notes on http://docs.mininet.org.
-
-### Other Enhancements and Information
-
-- Support for Ubuntu 22.04 LTS (and 20.04)
-
-- More reliable testing and CI via github actions
-
-- Preliminary support for cgroups v2 (and v1)
-
-- Minor bug fixes (2.3.1)
-
-- Additional information about this release and previous releases
-  may be found in the release notes on http://docs.mininet.org.
-
-### Installation
-
-See `INSTALL` for installation instructions and details.
-
-### Documentation
-
-In addition to the API documentation (`make doc`), much useful
-information, including a Mininet walkthrough and an introduction
-to the Python API, is available on the
-[Mininet Web Site](http://mininet.org).
-There is also a wiki which you are encouraged to read and to
-contribute to, particularly the Frequently Asked Questions
-(FAQ) at http://faq.mininet.org.
-
-### Support
-
-Mininet is community-supported. We encourage you to join the
-Mininet mailing list, `mininet-discuss` at:
-
-<https://mailman.stanford.edu/mailman/listinfo/mininet-discuss>
-
-### Join Us
-
-Thanks again to all of the Mininet contributors and users!
-
-Mininet is an open source project and is currently hosted
-at <https://github.com/mininet>. You are encouraged to download,
-examine, and modify the code, and to submit bug reports, bug fixes,
-feature requests, new features, and other issues and pull requests.
-Thanks to everyone who has contributed code to the Mininet project
-(see CONTRIBUTORS for more info!) It is because of everyone's
-hard work that Mininet continues to grow and improve.
-
-### Enjoy Mininet
-
-Have fun! We look forward to seeing what you will do with Mininet
-to change the networking world.
-
-Bob Lantz,
-on behalf of the Mininet Contributors
-
-[1]: https://github.com/mininet/mininet/workflows/mininet-tests/badge.svg
