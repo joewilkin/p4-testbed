@@ -47,4 +47,4 @@ On top of the features offered by standard Mininet and MiniEdit, this P4 testbed
 * An icon representing the Aurora 610 hardware switch which allows users to effortlessly integrate this swtich into their Mininet topologies.
 * A simple interface which allows users to view the tables and table entries present on the hardware switch.
 
-
+*This tool is based on Mininet, a virtual network emulator licensed under the BSD 3-Clause License. This tool is not endorsed by the Mininet project or its contributors.*
