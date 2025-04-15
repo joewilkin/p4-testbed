@@ -20,6 +20,8 @@ This program can be ran on a physical Linux machine or a virtual environment and
 * [protobuf](https://github.com/protocolbuffers/protobuf)
 * [thrift](https://github.com/apache/thrift)
 
+Additionally, Python version 3.10 or higher should be installed.
+
 ### Hardware Emulation
 
 To use the hardware switch-specific features, the program and dependancies in the above section must be installed on a physical Linux machine connected to an Aurora 610 hardware switch configured with the Tofino 1 architecture. The switch should be started with a compiled P4 program and the server.py script should be running on the switch using:
